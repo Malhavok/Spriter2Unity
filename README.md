@@ -31,6 +31,7 @@ What works:
 
 What doesn't work:
 - for some reason pickups ain't working... yet!
+- object-refs with some abs positions/pivots/scales etc - didn't see a reason so far to use them...
 
 Current usage (from command line):
 
