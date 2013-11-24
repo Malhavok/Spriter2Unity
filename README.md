@@ -10,7 +10,7 @@ What it does:
 - for each animation in SCML file creates a Unity animation
 
 Limitations (and why):
-- it doesn't assign any sprites, only creates nodes with SpriteRenderer (1. Unity uses guid's to assign them and i know no way of obtainig these; 2. this way you can place all elements on as many/little atlases as you want and still use it)
+- it doesn't assign any sprites, only creates nodes with SpriteRenderer (1. Unity uses guid's to assign them and i know no way of obtaining these; 2. this way you can place all elements on as many/little atlases as you want and still use it)
 - currently supports only Spriter b5 (because it was the "current" version when i started coding it)
 - doesn't change sprites like Spriter does (for each file a new Unity Node is generated, and is disabled / enabled whenever needed)
 - probably much more (but i didn't have time to test it enough)
@@ -22,7 +22,7 @@ Why this way:
 
 Roadmap:
 - making sure it works properly for everything in b5
-- adding some stuff from b6 when available (hit-boxes, spawn-points) (but i WONT add mesh deformation)
+- adding some stuff from b6 when available (hit-boxes, spawn-points) (but i WON'T add mesh deformation)
 - making it more user-friendly
 
 What works:

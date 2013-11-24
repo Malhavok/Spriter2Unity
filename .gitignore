@@ -1,8 +1,5 @@
 .DS_Store
 .idea
 *.pyc
-*.anim
-*.prefab
 *.txt
-*.scml
 *.controller

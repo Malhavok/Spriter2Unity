@@ -36,12 +36,9 @@ def export_to_unity(scmlFile):
             ac.save()
 
 
-#export_to_unity('support_files/Crabby1.scml')
-export_to_unity('support_files/s_chara.scml')
+if len(sys.argv) < 2:
+    print 'Usage:', sys.argv, '[SCML file]'
+    print '\tConverts SCML file into prefab and animations'
+    exit(1)
 
-#if len(sys.argv) < 2:
-#    print 'Usage:', sys.argv, '[SCML file]'
-#    print '\tConverts SCML file into prefab and animations'
-#    exit(1)
-#
-#export_to_unity(sys.argv[1])
+export_to_unity(sys.argv[1])
