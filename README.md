@@ -33,6 +33,9 @@ What doesn't work:
 - for some reason pickups ain't working... yet!
 - object-refs with some abs positions/pivots/scales etc - didn't see a reason so far to use them...
 
+Note:
+- set pivot in Unity to Center (the default one). All pivot calculations are taken care of internally
+
 Current usage (from command line):
 
 python main.py [name of the SCML to covert]
