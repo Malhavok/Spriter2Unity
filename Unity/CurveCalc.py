@@ -144,6 +144,12 @@ class CurveCalc(object):
 
             outList.append(elem)
 
+        # fix slopes
+        for idx in xrange(len(outList)):
+            nextIdx = (idx + 1) % len(outList)
+
+            outList[nextIdx]['inSlope'] = outList[idx]['outSlope']
+
         return outList
 
     def calc_elems(self, x1, x2, d1, d2):
