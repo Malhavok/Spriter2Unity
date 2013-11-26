@@ -156,20 +156,24 @@ class CurveCalc(object):
         # this number is deeply magical, i'm currently setting it to any value...
         # read: http://answers.unity3d.com/questions/313276/undocumented-property-keyframetangentmode.html
         # if it won't work i'll set it to 0 and interpolate by hand
-        outDict['tangentMode'] = 21
+        outDict['tangentMode'] = 0
 
         for idx in xrange(len(d1)):
             v1 = d1[idx]
             v2 = d2[idx]
 
-            slopeTg = (v1 - v2) / (x1 - x2)
+            if idx != 2:
+                slopeTg = (v1 - v2) / (x1 - x2)
 
-            if math.fabs(slopeTg) < 1e-4:
-                slopeTg = 0.0
+                if math.fabs(slopeTg) < 1e-4:
+                    slopeTg = 0.0
 
-            # i'm adding it to both in and out slopes, didn't see changes
-            # in linear movements
-            outDict['inSlope'].append(slopeTg)
-            outDict['outSlope'].append(slopeTg)
+                # i'm adding it to both in and out slopes, didn't see changes
+                # in linear movements
+                outDict['inSlope'].append(slopeTg)
+                outDict['outSlope'].append(slopeTg)
+            else:
+                outDict['inSlope'].append('Infinity')
+                outDict['outSlope'].append('Infinity')
 
         return outDict
