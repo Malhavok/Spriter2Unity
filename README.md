@@ -3,7 +3,7 @@ Spriter2Unity
 
 Tool that converts SCML files into unity .prefab and .anim files
 
-This is a VERY early version and is probably NOT working well, but it'll be fixed over time. It requires python installed in your system (but no special or external library is needed). Generated prefab's and anim's are in Unity text mode, dunno yet how it'll behave in the long run.
+This is an early version and is probably NOT working well, but it'll be fixed over time. It requires python installed in your system (but no special or external library is needed). Generated prefab's and anim's are in Unity text mode, dunno yet how it'll behave in the long run.
 
 What it does:
 - for each entity in SCML file creates a Unity prefab
@@ -26,11 +26,11 @@ Roadmap:
 - making it more user-friendly
 
 What works:
-- i was able to export test character from Spriter Asset pack with it
-- i support a sample character (terrible! made it myself) as an example
+- was able to export test character from Spriter free Asset pack with it
+- a sample character (terrible! made it myself) as an example
+- pickups from Spriter essential art pack
 
 What doesn't work:
-- for some reason pickups ain't working... yet!
 - object-refs with some abs positions/pivots/scales etc - didn't see a reason so far to use them...
 
 Note:
