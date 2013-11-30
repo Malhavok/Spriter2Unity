@@ -16,10 +16,18 @@ class GameObject(object):
 
         self.path = None
 
+        self.takesPartInAnimCalcs = True
+
         self.add_component(Transform())
+
+    def set_takes_part_in_anim_calcs(self, newVal):
+        self.takesPartInAnimCalcs = newVal
 
     def set_active(self, isActive):
         self.isActive = isActive
+
+    def does_take_part_in_anim_calcs(self):
+        return self.takesPartInAnimCalcs
 
     def is_active(self):
         return self.isActive

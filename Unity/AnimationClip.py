@@ -140,6 +140,8 @@ class AnimationClip(object):
 
         for t in self.keyframes.keys():
             for go in self.keyframes[t]:
+                if not go.does_take_part_in_anim_calcs():
+                    continue
                 transform = go.get_component_of_type(Transform.type)
                 cc.add_info(go.get_path(), t, transform.get_position())
 
@@ -148,6 +150,8 @@ class AnimationClip(object):
             finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
 
         for go in finalKey:
+            if not go.does_take_part_in_anim_calcs():
+                continue
             transform = go.get_component_of_type(Transform.type)
             cc.add_info(go.get_path(), self.animTime, transform.get_position())
 
@@ -162,6 +166,8 @@ class AnimationClip(object):
 
         for t in self.keyframes.keys():
             for go in self.keyframes[t]:
+                if not go.does_take_part_in_anim_calcs():
+                    continue
                 transform = go.get_component_of_type(Transform.type)
                 cc.add_angle_info(go.get_path(), t, transform.get_z_angle())
 
@@ -171,6 +177,8 @@ class AnimationClip(object):
             finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
 
         for go in finalKey:
+            if not go.does_take_part_in_anim_calcs():
+                continue
             transform = go.get_component_of_type(Transform.type)
             cc.add_angle_info(go.get_path(), self.animTime, transform.get_z_angle())
 
@@ -186,6 +194,8 @@ class AnimationClip(object):
 
         for t in self.keyframes.keys():
             for go in self.keyframes[t]:
+                if not go.does_take_part_in_anim_calcs():
+                    continue
                 transform = go.get_component_of_type(Transform.type)
                 cc.add_info(go.get_path(), t, transform.get_scale())
 
@@ -194,6 +204,8 @@ class AnimationClip(object):
             finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
 
         for go in finalKey:
+            if not go.does_take_part_in_anim_calcs():
+                continue
             transform = go.get_component_of_type(Transform.type)
             cc.add_info(go.get_path(), self.animTime, transform.get_scale())
 

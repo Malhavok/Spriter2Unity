@@ -22,6 +22,16 @@ class Node(object):
         self.parent = None
         self.children = []
 
+        self.active = True
+
+    def set_active(self, newActive):
+        self.active = newActive
+
+    def get_active(self):
+        # if set to true, use the object for all calculations
+        # if set to false - use it only to mark it's existance
+        return self.active
+
     def add_child(self, othNode):
         othNode.parent = self
         self.children.append(othNode)

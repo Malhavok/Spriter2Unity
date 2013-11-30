@@ -61,6 +61,7 @@ class PrefabMaker(object):
         # !!!! this requires HEAVY refactoring to make it
         # !!!! easier to understand and modify
         go = Unity.GameObject.GameObject(node.get_name())
+        go.set_takes_part_in_anim_calcs(node.get_active())
 
         sinA = math.sin(node.get_angle())
         cosA = math.cos(node.get_angle())

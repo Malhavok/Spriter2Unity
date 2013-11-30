@@ -46,8 +46,10 @@ class KeyFrame(object):
 
             objTime = obj.build(st, self.timeline)
 
-            if math.fabs(self.key.time - objTime) < 1e-4:
-                node.add_child(obj)
+            if math.fabs(self.key.time - objTime) > 1e-4:
+                obj.set_active(False)
+
+            node.add_child(obj)
 
             newPath = obj.get_bone_id()
             if newPath is not None:
