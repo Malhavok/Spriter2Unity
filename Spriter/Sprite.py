@@ -85,6 +85,8 @@ class Sprite(Node):
 
         self.obj = obj
 
+        return finalKey.time
+
 
     def __str__(self):
         outList = []

@@ -102,6 +102,8 @@ class Node(object):
 
         self.bone = bone
 
+        return finalKey.time
+
 
     def __str__(self):
         outList = []

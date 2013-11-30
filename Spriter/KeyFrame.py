@@ -6,6 +6,8 @@ from BoneRef import BoneRef
 from ObjectRef import ObjectRef
 
 import Utils
+import math
+
 
 class KeyFrame(object):
     def __init__(self, key, timeline, fileKeeper):
@@ -42,8 +44,10 @@ class KeyFrame(object):
             if obj is None:
                 Utils.print_error('Unable to generate node nor sprite from', [obj, self.key, self.timeline])
 
-            obj.build(st, self.timeline)
-            node.add_child(obj)
+            objTime = obj.build(st, self.timeline)
+
+            if math.fabs(self.key.time - objTime) < 1e-4:
+                node.add_child(obj)
 
             newPath = obj.get_bone_id()
             if newPath is not None:
