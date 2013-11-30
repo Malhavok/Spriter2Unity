@@ -83,14 +83,14 @@ class PrefabMaker(object):
         y *= (sy / node.get_scale_y())
 
         if node.__class__ == Sprite.Sprite:
-            px = node.get_pivot_from_middle_pix_x()
-            py = node.get_pivot_from_middle_pix_y()
+            px = node.get_pivot_from_middle_pix_x() * sx
+            py = node.get_pivot_from_middle_pix_y() * sy
 
             rotPX = px * cosA - py * sinA
             rotPY = px * sinA + py * cosA
 
-            x += rotPX * sx
-            y += rotPY * sy
+            x += rotPX
+            y += rotPY
 
             z = -float(node.get_z_index())
             go.add_component(Unity.SpriteRenderer.SpriteRenderer())
