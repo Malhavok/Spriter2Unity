@@ -40,5 +40,5 @@ class Object(KeyElem):
         self.scale_y = float(node.attrib.get('scale_y', 1.0))
 
     def __str__(self):
-        return 'Object (folder: %d, file: %d, x: %f, y: %f, px: %f, py: %f, sx: %f, sy: %f, a: %f [deg: %f])'\
-                % (self.folder, self.file, self.x, self.y, self.pivot_x, self.pivot_y, self.scale_x, self.scale_y, self.angle, self.angle_deg)
+        return 'Object (folder: %d, file: %d, x: %f, y: %f, px: %s, py: %s, sx: %f, sy: %f, a: %f [deg: %f])'\
+                % (self.folder, self.file, self.x, self.y, str(self.pivot_x), str(self.pivot_y), self.scale_x, self.scale_y, self.angle, self.angle_deg)

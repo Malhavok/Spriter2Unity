@@ -89,8 +89,8 @@ class PrefabMaker(object):
             rotPX = px * cosA - py * sinA
             rotPY = px * sinA + py * cosA
 
-            x += rotPX
-            y += rotPY
+            x += rotPX * sx
+            y += rotPY * sy
 
             z = -float(node.get_z_index())
             go.add_component(Unity.SpriteRenderer.SpriteRenderer())
