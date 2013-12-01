@@ -14,9 +14,16 @@ class SpriteRenderer(Component):
         SpriteRenderer.globalId += 2
 
         self.render_group = 0
+        self.alpha = 1.0
 
     def set_render_group(self, rg):
         self.render_group = rg
+
+    def set_alpha(self, newVal):
+        self.alpha = newVal
+
+    def get_alpha(self):
+        return self.alpha
 
     def to_string(self):
         outList = []

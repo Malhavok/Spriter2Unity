@@ -4,6 +4,7 @@ from CurveCalc import CurveCalc
 from CurveCalcRot import CurveCalcRot
 from CurveCalcInstant import CurveCalcInstant
 from Transform import Transform
+from SpriteRenderer import SpriteRenderer
 from GameObject import GameObject
 
 class AnimationClip(object):
@@ -42,6 +43,7 @@ class AnimationClip(object):
         positionCurves, editorPosData = self.calc_position_curves()
         scaleCurves, editorScaleData = self.calc_scale_curves()
         floatingCurves, editorFloatCurves = self.calc_active_curves()
+        floatAlpha, editorFloatAlpha = self.calc_alpha_curves()
 
         outList.append('%YAML 1.1')
         outList.append('%TAG !u! tag:unity3d.com,2011:')
@@ -80,11 +82,16 @@ class AnimationClip(object):
             outList.append(self.tabber(2, scaleCurves, ' '))
 
         # place floating curves here
-        if floatingCurves is None:
+        if floatingCurves is None and floatAlpha is None:
             outList.append('  m_FloatCurves: []')
         else:
             outList.append('  m_FloatCurves:')
-            outList.append(self.tabber(2, floatingCurves, ' '))
+
+            if floatingCurves is not None:
+                outList.append(self.tabber(2, floatingCurves, ' '))
+
+            if floatAlpha is not None:
+                outList.append(self.tabber(2, floatAlpha, ' '))
 
         outList.append('  m_PPtrCurves: []')
         outList.append('  m_SampleRate: 60')
@@ -111,7 +118,7 @@ class AnimationClip(object):
         outList.append('    m_Mirror: 0')
 
         # place editor curves here
-        if editorPosData is None and editorScaleData is None and editorRotData is None and editorFloatCurves is None:
+        if editorPosData is None and editorScaleData is None and editorRotData is None and editorFloatCurves is None and editorFloatAlpha is None:
             outList.append('  m_EditorCurves: []')
         else:
             outList.append('  m_EditorCurves:')
@@ -123,6 +130,8 @@ class AnimationClip(object):
                 outList.append(self.tabber(2, editorScaleData, ' '))
             if editorFloatCurves is not None:
                 outList.append(self.tabber(2, editorFloatCurves, ' '))
+            if editorFloatAlpha is not None:
+                outList.append(self.tabber(2, editorFloatAlpha, ' '))
 
         # place euler editor curves here
         outList.append('  m_EulerEditorCurves: []')
@@ -244,6 +253,37 @@ class AnimationClip(object):
 
         # string to write it down, data for editor curves
         return cc.to_editor_string(GameObject.type, 'm_IsActive'), cc.to_editor_string(GameObject.type, 'm_IsActive')
+
+
+    def calc_alpha_curves(self):
+        if len(self.keyframes) == 0:
+            return None
+
+        cc = CurveCalc(['a'])
+
+        for t in self.keyframes.keys():
+            for go in self.keyframes[t]:
+                if not go.does_take_part_in_anim_calcs():
+                    continue
+                sprite_renderer = go.get_component_of_type(SpriteRenderer.type)
+                if sprite_renderer is None:
+                    continue
+                cc.add_info(go.get_path(), t, [sprite_renderer.get_alpha()])
+
+        finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
+        if self.isLooped:
+            finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
+
+        for go in finalKey:
+            if not go.does_take_part_in_anim_calcs():
+                continue
+            sprite_renderer = go.get_component_of_type(SpriteRenderer.type)
+            if sprite_renderer is None:
+                continue
+            cc.add_info(go.get_path(), self.animTime, [sprite_renderer.get_alpha()])
+
+        # string to write it down, data for editor curves
+        return cc.to_editor_string(SpriteRenderer.type, 'm_Color'), cc.to_editor_string(SpriteRenderer.type, 'm_Color')
 
 
     def tabber(self, num, text, ch = '\t'):

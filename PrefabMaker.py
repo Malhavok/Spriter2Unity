@@ -97,6 +97,7 @@ class PrefabMaker(object):
 
             sr = Unity.SpriteRenderer.SpriteRenderer()
             sr.set_render_group(node.get_z_index())
+            sr.set_alpha(node.get_alpha())
             go.add_component(sr)
 
 

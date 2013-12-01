@@ -3,9 +3,9 @@ __author__ = 'Malhavok'
 import math
 
 class CurveCalc(object):
-    def __init__(self):
+    def __init__(self, markers = ('x', 'y', 'z', 'w')):
         self.info = {}
-        self.markers = ['x', 'y', 'z', 'w']
+        self.markers = markers
 
 
     def add_info(self, path, time, values):

@@ -15,6 +15,7 @@ class Sprite(Node):
         self.pivot_x = 0.0
         self.pivot_y = 1.0
 
+        self.alpha = 1.0
         self.z_index = 0
 
         self.objRef = None
@@ -23,6 +24,9 @@ class Sprite(Node):
 
     def get_z_index(self):
         return self.z_index
+
+    def get_alpha(self):
+        return self.alpha
 
     def get_pivot(self):
         return self.pivot_x, self.pivot_y
@@ -82,6 +86,7 @@ class Sprite(Node):
 
         self.pivot_x = obj.pivot_x if obj.pivot_x is not None else self.file.pivot_x
         self.pivot_y = obj.pivot_y if obj.pivot_y is not None else self.file.pivot_y
+        self.alpha = obj.alpha
 
         self.obj = obj
 

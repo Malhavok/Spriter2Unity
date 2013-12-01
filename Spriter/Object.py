@@ -19,6 +19,7 @@ class Object(KeyElem):
         self.angle_deg = None
         self.scale_x = None
         self.scale_y = None
+        self.alpha = None
 
         self.parse(node)
 
@@ -27,6 +28,7 @@ class Object(KeyElem):
         self.file = int(node.attrib['file'])
         self.x = float(node.attrib.get('x', 0.0))
         self.y = float(node.attrib.get('y', 0.0))
+        self.alpha = float(node.attrib.get('a', 1.0))
 
         if 'pivot_x' in node.attrib:
             self.pivot_x = float(node.attrib['pivot_x'])
