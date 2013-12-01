@@ -13,6 +13,11 @@ class SpriteRenderer(Component):
         super(self.__class__, self).__init__(SpriteRenderer.type, SpriteRenderer.globalId)
         SpriteRenderer.globalId += 2
 
+        self.render_group = 0
+
+    def set_render_group(self, rg):
+        self.render_group = rg
+
     def to_string(self):
         outList = []
 
@@ -36,7 +41,7 @@ class SpriteRenderer(Component):
         outList.append('  m_LightProbeAnchor: {fileID: 0}')
         outList.append('  m_ScaleInLightmap: 1')
         outList.append('  m_SortingLayer: 0')
-        outList.append('  m_SortingOrder: 0')
+        outList.append('  m_SortingOrder: %d' % (self.render_group,))
         outList.append('  m_SortingLayerID: 0')
         outList.append('  m_Sprite: {fileID: 0}')
         outList.append('  m_Color: {r: 1, g: 1, b: 1, a: 1}')

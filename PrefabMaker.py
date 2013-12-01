@@ -94,7 +94,10 @@ class PrefabMaker(object):
             y += rotPY
 
             z = -float(node.get_z_index())
-            go.add_component(Unity.SpriteRenderer.SpriteRenderer())
+
+            sr = Unity.SpriteRenderer.SpriteRenderer()
+            sr.set_render_group(node.get_z_index())
+            go.add_component(sr)
 
 
         transform = go.get_component_of_type(Unity.Transform.Transform.type)
