@@ -16091,6 +16091,650 @@ AnimationClip:
     path: bone_000/bone_015/bone_016/leg_lower_b_(leg_lower_b.png)
     classID: 1
     script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.131
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.373
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.441
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_011/bone_012/leg_lower_b_000_(leg_lower_b.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_005/bone_006/bone_007/big_pincer_b_(big_pincer_b.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_005/bone_006/left_arm_000_(left_arm.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.373
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.592
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_013/bone_014/leg_lower_f_(leg_lower_f.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.373
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.592
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_013/leg_upper_f_(leg_upper_f.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.873
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_009/leg_upper_f_000_(leg_upper_f.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/body_(body.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_001/right_arm_(right_arm.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_005/bone_006/bone_007/bone_008/big_pincer_l_(big_pincer_l.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/eye_ball_(eye_ball.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_001/bone_002/right_arm_000_(right_arm.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/eye_ball_000_(eye_ball.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.873
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_009/bone_010/leg_lower_f_000_(leg_lower_f.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/eyes_(eyes.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.131
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.373
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.441
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_011/leg_upper_b_000_(leg_upper_b.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_005/left_arm_(left_arm.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.131
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.873
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_015/leg_upper_b_(leg_upper_b.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_001/bone_002/bone_003/small_pincer_b_(small_pincer_b.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/mouth_(mouth.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.131
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.873
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_015/bone_016/leg_lower_b_(leg_lower_b.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_001/bone_002/bone_003/bone_004/small_pincer_l_(small_pincer_l.png)
+    classID: 212
+    script: {fileID: 0}
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -72626,6 +73270,650 @@ AnimationClip:
     attribute: m_IsActive
     path: bone_000/bone_015/bone_016/leg_lower_b_(leg_lower_b.png)
     classID: 1
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.131
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.373
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.441
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_011/bone_012/leg_lower_b_000_(leg_lower_b.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_005/bone_006/bone_007/big_pincer_b_(big_pincer_b.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_005/bone_006/left_arm_000_(left_arm.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.373
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.592
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_013/bone_014/leg_lower_f_(leg_lower_f.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.373
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.592
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_013/leg_upper_f_(leg_upper_f.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.873
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_009/leg_upper_f_000_(leg_upper_f.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/body_(body.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_001/right_arm_(right_arm.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_005/bone_006/bone_007/bone_008/big_pincer_l_(big_pincer_l.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/eye_ball_(eye_ball.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_001/bone_002/right_arm_000_(right_arm.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/eye_ball_000_(eye_ball.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.873
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_009/bone_010/leg_lower_f_000_(leg_lower_f.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/eyes_(eyes.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.131
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.373
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.441
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_011/leg_upper_b_000_(leg_upper_b.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_005/left_arm_(left_arm.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.131
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.873
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_015/leg_upper_b_(leg_upper_b.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_001/bone_002/bone_003/small_pincer_b_(small_pincer_b.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/mouth_(mouth.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.131
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.25
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.693
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.873
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_015/bone_016/leg_lower_b_(leg_lower_b.png)
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 0.5
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      - time: 1.0
+        value: 1.0
+        inSlope: 0.0
+        outSlope: 0.0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: bone_000/bone_001/bone_002/bone_003/bone_004/small_pincer_l_(small_pincer_l.png)
+    classID: 212
     script: {fileID: 0}
   m_EulerEditorCurves: []
   m_Events: []
