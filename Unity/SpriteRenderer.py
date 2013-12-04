@@ -2,9 +2,6 @@ __author__ = 'Malhavok'
 
 from Component import Component
 
-# this is just as something "to show"
-# i'm not really filling anything here, just marking as renderer
-# Y.A.G.N.I.
 class SpriteRenderer(Component):
     globalId = 0
     type = 212
