@@ -21,6 +21,8 @@ class Sprite(Node):
         self.objRef = None
         self.obj = None
 
+    def get_file(self):
+        return self.file
 
     def get_z_index(self):
         return self.z_index

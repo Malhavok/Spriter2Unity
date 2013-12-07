@@ -12,12 +12,16 @@ class SpriteRenderer(Component):
 
         self.render_group = 0
         self.alpha = 1.0
+        self.sprite_guid = None
 
     def set_render_group(self, rg):
         self.render_group = rg
 
     def set_alpha(self, newVal):
         self.alpha = newVal
+
+    def set_sprite_guid(self, guid):
+        self.sprite_guid = guid
 
     def get_alpha(self):
         return self.alpha
@@ -47,7 +51,11 @@ class SpriteRenderer(Component):
         outList.append('  m_SortingLayer: 0')
         outList.append('  m_SortingOrder: %d' % (self.render_group,))
         outList.append('  m_SortingLayerID: 0')
-        outList.append('  m_Sprite: {fileID: 0}')
+
+        if self.sprite_guid is None:
+            outList.append('  m_Sprite: {fileID: 0}')
+        else:
+            outList.append('  m_Sprite: {fileID: 21300000, guid: %s, type: 3}' % (self.sprite_guid,))
         outList.append('  m_Color: {r: 1, g: 1, b: 1, a: 1}')
 
         return '\n'.join(outList)

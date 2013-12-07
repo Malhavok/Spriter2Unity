@@ -6,9 +6,10 @@ from Unity import Consts as UC
 from Spriter import Node, Sprite
 
 class PrefabMaker(object):
-    def __init__(self):
+    def __init__(self, metaReader = None):
         self.go_map = {}
         self.saver = Unity.PrefabSaver.PrefabSaver()
+        self.metaReader = metaReader
 
     def get_game_object_list(self):
         return self.go_map.values()
@@ -98,6 +99,10 @@ class PrefabMaker(object):
             sr = Unity.SpriteRenderer.SpriteRenderer()
             sr.set_render_group(node.get_z_index())
             sr.set_alpha(node.get_alpha())
+
+            if self.metaReader:
+                sr.set_sprite_guid(self.metaReader.get_guid(node.get_file().get_name()))
+
             go.add_component(sr)
 
 
