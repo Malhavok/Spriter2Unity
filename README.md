@@ -9,10 +9,10 @@ What it does:
 - for each entity in SCML file creates a Unity prefab
 - each entity got it's sprites assigned as long as you imported these sprites before conversion
 - for each animation in SCML file creates a Unity animation
+- sprites are changed during animations, so only 1 SpriteRenderer is used for each node in the spriter file
 
 Limitations (and why):
 - currently supports only Spriter b5 (because it was the "current" version when i started coding it)
-- doesn't change sprites like Spriter does (for each file a new Unity Node is generated, and is disabled / enabled whenever needed)
 - probably much more (but i didn't have time to test it enough)
 
 Why this way:
