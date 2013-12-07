@@ -78,7 +78,7 @@ class Sprite(Node):
         # fill using data from object!
         self.file = self.fileKeeper.get_file(obj.folder, obj.file)
 
-        self.name = self.name + '_' + str(self.z_index) + '_(' + self.file.name.replace('/', '!') + ')'
+        self.name = self.name + '_Z' + str(self.z_index)
 
         self.x = obj.x
         self.y = obj.y

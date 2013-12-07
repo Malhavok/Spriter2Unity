@@ -3,6 +3,7 @@ __author__ = 'Malhavok'
 from CurveCalc import CurveCalc
 from CurveCalcRot import CurveCalcRot
 from CurveCalcInstant import CurveCalcInstant
+from CurveCalcSprite import CurveCalcSprite
 from Transform import Transform
 from SpriteRenderer import SpriteRenderer
 from GameObject import GameObject
@@ -44,6 +45,7 @@ class AnimationClip(object):
         scaleCurves, editorScaleData = self.calc_scale_curves()
         floatingCurves, editorFloatCurves = self.calc_active_curves()
         floatAlpha, editorFloatAlpha = self.calc_alpha_curves()
+        pptrCurves = self.calc_pptr_curves()
 
         outList.append('%YAML 1.1')
         outList.append('%TAG !u! tag:unity3d.com,2011:')
@@ -93,7 +95,12 @@ class AnimationClip(object):
             if floatAlpha is not None:
                 outList.append(self.tabber(2, floatAlpha, ' '))
 
-        outList.append('  m_PPtrCurves: []')
+        if pptrCurves is None:
+            outList.append('  m_PPtrCurves: []')
+        else:
+            outList.append('  m_PPtrCurves:')
+            outList.append(self.tabber(2, pptrCurves, ' '))
+
         outList.append('  m_SampleRate: 60')
         outList.append('  m_WrapMode: 0')
         outList.append('  m_Bounds:')
@@ -285,6 +292,36 @@ class AnimationClip(object):
         # string to write it down, data for editor curves
         return cc.to_editor_string(SpriteRenderer.type, 'm_Color'), cc.to_editor_string(SpriteRenderer.type, 'm_Color')
 
+
+    def calc_pptr_curves(self):
+        if len(self.keyframes) == 0:
+            return None
+
+        cc = CurveCalcSprite()
+
+        for t in self.keyframes.keys():
+            for go in self.keyframes[t]:
+                if not go.does_take_part_in_anim_calcs():
+                    continue
+                sprite_renderer = go.get_component_of_type(SpriteRenderer.type)
+                if sprite_renderer is None:
+                    continue
+                cc.add_info(go.get_path(), t, [sprite_renderer.get_sprite_guid()])
+
+        finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
+        if self.isLooped:
+            finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
+
+        for go in finalKey:
+            if not go.does_take_part_in_anim_calcs():
+                continue
+            sprite_renderer = go.get_component_of_type(SpriteRenderer.type)
+            if sprite_renderer is None:
+                continue
+            cc.add_info(go.get_path(), self.animTime, [sprite_renderer.get_sprite_guid()])
+
+        # sprite changing generate NO editor curve
+        return cc.to_editor_string(SpriteRenderer.type, 'm_Sprite')
 
     def tabber(self, num, text, ch = '\t'):
         split = text.splitlines()

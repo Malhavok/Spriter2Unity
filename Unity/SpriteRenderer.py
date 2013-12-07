@@ -23,6 +23,9 @@ class SpriteRenderer(Component):
     def set_sprite_guid(self, guid):
         self.sprite_guid = guid
 
+    def get_sprite_guid(self):
+        return self.sprite_guid
+
     def get_alpha(self):
         return self.alpha
 
