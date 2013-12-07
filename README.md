@@ -41,10 +41,10 @@ Note:
 Current usage (from command line):
 
 python list_tex.py [name of the SCML]
-    lists all textures required for this scml file
+- lists all textures required for this scml file
 
 python list_unity_tex.py [name of the SCML] [Unity directory]
-    checks are all textures from Unity were exported correctly (have guid assigned already)
+- checks are all textures from Unity were exported correctly (have guid assigned already)
 
 python convert.py [name of the SCML to covert] [Unity folder with textures that match these required]
-    this converts scml file into prefab and anims
+- this converts scml file into prefab and anims
