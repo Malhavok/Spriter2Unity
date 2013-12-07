@@ -13,7 +13,10 @@ class CurveCalcSprite(CurveCalc):
 
         for elem in dataList:
             outList.append('  - time: ' + str(elem['time']))
-            outList.append('    value: {fileID: 21300000, guid: %s, type: 3}' % (str(elem['value']),))
+            if elem['value'] is not None:
+                outList.append('    value: {fileID: 21300000, guid: %s, type: 3}' % (str(elem['value']),))
+            else:
+                outList.append('    value: {fileID: 0}')
 
         outList.append('  attribute: ' + varName)
         outList.append('  path: ' + path)

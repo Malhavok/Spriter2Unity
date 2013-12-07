@@ -42,6 +42,9 @@ class Entity(object):
         self.name = node.attrib['name']
 
         for elem in node:
+            if elem.tag != 'animation':
+                continue
+
             a = Animation(elem)
             self.animations[a.get_id()] = a
 
