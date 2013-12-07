@@ -13,12 +13,14 @@ class CurveCalcSprite(CurveCalc):
 
         for elem in dataList:
             outList.append('  - time: ' + str(elem['time']))
-            outList.append('    value: ' + str(elem['value']))
+            outList.append('    value: {fileID: 21300000, guid: %s, type: 3}' % (str(elem['value']),))
 
         outList.append('  attribute: ' + varName)
         outList.append('  path: ' + path)
         outList.append('  classID: ' + str(typeId))
         outList.append('  script: {fileID: 0}')
+
+        return '\n'.join(outList)
 
     def mangle_data(self, dataDict):
         timeKeys = sorted(dataDict.keys())
@@ -31,7 +33,7 @@ class CurveCalcSprite(CurveCalc):
 
             d1 = list(dataDict[time])
 
-            elem = {'time': time, 'value': d1}
+            elem = {'time': time, 'value': d1[0]}
             outList.append(elem)
 
         return outList
