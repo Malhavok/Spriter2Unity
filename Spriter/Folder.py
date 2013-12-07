@@ -19,6 +19,14 @@ class Folder(object):
 
         return self.files[fileId]
 
+    def get_file_list(self):
+        outList = []
+
+        for f in self.files.values():
+            outList.append(f.get_name())
+
+        return outList
+
     def parse(self, node):
         self.id = int(node.attrib['id'])
 

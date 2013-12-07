@@ -14,6 +14,9 @@ class File(object):
     def get_id(self):
         return self.id
 
+    def get_name(self):
+        return self.name
+
     def parse(self, node):
         self.id = int(node.attrib['id'])
         self.name = node.attrib['name']

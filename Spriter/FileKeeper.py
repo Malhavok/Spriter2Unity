@@ -9,3 +9,11 @@ class FileKeeper(object):
             return None
 
         return self.folders[folderId].get_file(fileId)
+
+    def get_file_list(self):
+        outList = []
+
+        for folder in self.folders.values():
+            outList.extend(folder.get_file_list())
+
+        return outList

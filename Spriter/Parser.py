@@ -20,6 +20,9 @@ class Parser(object):
         print 'ERROR:', msg
         exit(1)
 
+    def get_file_keeper(self):
+        return FileKeeper(self.folders)
+
     def mangle(self):
         root = self.xml.getroot()
 
@@ -39,7 +42,7 @@ class Parser(object):
                 self.make_error('unsupported tag: %s' % (elem.tag,))
 
     def prepare_entities(self):
-        fk = FileKeeper(self.folders)
+        fk = self.get_file_keeper()
 
         outList = []
         for ent in self.entities.values():
