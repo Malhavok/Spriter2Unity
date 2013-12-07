@@ -7,10 +7,10 @@ This is an early version and is probably NOT working well, but it'll be fixed ov
 
 What it does:
 - for each entity in SCML file creates a Unity prefab
+- each entity got it's sprites assigned as long as you imported these sprites before conversion
 - for each animation in SCML file creates a Unity animation
 
 Limitations (and why):
-- it doesn't assign any sprites, only creates nodes with SpriteRenderer (1. Unity uses guid's to assign them and i know no way of obtaining these; 2. this way you can place all elements on as many/little atlases as you want and still use it)
 - currently supports only Spriter b5 (because it was the "current" version when i started coding it)
 - doesn't change sprites like Spriter does (for each file a new Unity Node is generated, and is disabled / enabled whenever needed)
 - probably much more (but i didn't have time to test it enough)
@@ -35,7 +35,16 @@ What doesn't work:
 
 Note:
 - set pivot in Unity to Center (the default one). All pivot calculations are taken care of internally
+- import all Sprites BEFORE even calling convert
+- you HAVE TO set Editor option for metafiles to "visible" (you'd like that for any version control anyway)
 
 Current usage (from command line):
 
-python main.py [name of the SCML to covert]
+python list_tex.py [name of the SCML]
+    lists all textures required for this scml file
+
+python list_unity_tex.py [name of the SCML] [Unity directory]
+    checks are all textures from Unity were exported correctly (have guid assigned already)
+
+python convert.py [name of the SCML to covert] [Unity folder with textures that match these required]
+    this converts scml file into prefab and anims
