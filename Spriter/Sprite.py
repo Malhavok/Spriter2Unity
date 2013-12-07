@@ -78,7 +78,9 @@ class Sprite(Node):
         # fill using data from object!
         self.file = self.fileKeeper.get_file(obj.folder, obj.file)
 
-        self.name = self.name + '_Z' + str(self.z_index)
+        # this name changing was breaking all animations
+        # 'til Unity allows animating layer orders of SpriteRenderer, we're using Z ordering
+        self.name = self.name# + '_Z' + str(self.z_index)
 
         self.x = obj.x
         self.y = obj.y

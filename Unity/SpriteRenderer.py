@@ -52,7 +52,11 @@ class SpriteRenderer(Component):
         outList.append('  m_LightProbeAnchor: {fileID: 0}')
         outList.append('  m_ScaleInLightmap: 1')
         outList.append('  m_SortingLayer: 0')
-        outList.append('  m_SortingOrder: %d' % (self.render_group,))
+
+        # this property can't be animated currently in Unity, so we're using Z variable
+        outList.append('  m_SortingOrder: 0')
+        #outList.append('  m_SortingOrder: %d' % (self.render_group,))
+
         outList.append('  m_SortingLayerID: 0')
 
         if self.sprite_guid is None:

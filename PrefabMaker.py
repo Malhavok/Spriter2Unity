@@ -94,7 +94,11 @@ class PrefabMaker(object):
             x += rotPX
             y += rotPY
 
-            z = -float(node.get_z_index())
+            # this solves Z-sorting problem in a less aggressive way
+            # if the value is big enough it solves z-fighting problems
+            # Unity imports this as 1/100, multiplying by 10 seems fine
+            # to solve f-fighting problem (and won't require moving the default camera)
+            z = -float(node.get_z_index() * 10.0)
 
             sr = Unity.SpriteRenderer.SpriteRenderer()
             sr.set_render_group(node.get_z_index())
