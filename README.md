@@ -37,6 +37,7 @@ Note:
 - set pivot in Unity to Center (the default one). All pivot calculations are taken care of internally
 - import all Sprites BEFORE even calling convert
 - you HAVE TO set Editor option for metafiles to "visible" (you'd like that for any version control anyway)
+- requires python 2.7, doesn't work with python 3.0
 
 Current usage (from command line):
 
