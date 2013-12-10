@@ -38,6 +38,7 @@ Note:
 - import all Sprites BEFORE even calling convert
 - you HAVE TO set Editor option for metafiles to "visible" (you'd like that for any version control anyway)
 - requires python 2.7, doesn't work with python 3.0
+- before using you may want to watch this: http://www.youtube.com/watch?v=pZK86lQU8ME (thanks to Edgar from www.brashmonkey.com for this video)
 
 Current usage (from command line):
 
