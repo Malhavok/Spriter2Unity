@@ -1,6 +1,7 @@
 __author__ = 'Malhavok'
 
 from Transform import Transform
+from MonoBehaviour import MonoBehaviour
 
 class GameObject(object):
     globalId = 0
@@ -84,6 +85,17 @@ class GameObject(object):
         for cmp in self.components:
             if cmp.get_type() == type:
                 return cmp
+        return None
+
+    def get_mono_behaviour_by_guid(self, scriptGUID):
+        for cmp in self.components:
+            if cmp.get_type() != MonoBehaviour.get_guid():
+                continue
+
+            if cmp.get_guid() != scriptGUID:
+                continue
+
+            return cmp
         return None
 
     def to_string(self):

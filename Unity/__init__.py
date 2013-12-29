@@ -5,3 +5,5 @@ import Transform
 import GameObject
 import AnimationClip
 import MetaReader
+import MonoBehaviour
+import MB_AssignSprite

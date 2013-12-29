@@ -10,6 +10,7 @@ class PrefabMaker(object):
         self.go_map = {}
         self.saver = Unity.PrefabSaver.PrefabSaver()
         self.metaReader = metaReader
+        self.spriteAssigner = Unity.MB_AssignSprite.MB_AssignSprite()
 
     def get_game_object_list(self):
         return self.go_map.values()
@@ -50,11 +51,24 @@ class PrefabMaker(object):
             for frameId in xrange(startFrame, numFrames):
                 self.generate_game_objects(entity, animId, frameId, True)
 
+        # attach sprite script to the main GO
+        self.fix_sprite_assigner()
+        self.go_map[None].add_component(self.spriteAssigner)
+
         for path in self.go_map.keys():
             self.saver.add_object(self.go_map[path], path is None)
 
         self.saver.save(entity.get_name())
 
+    def fix_sprite_assigner(self):
+        for go in self.go_map.values():
+            sr = go.get_component_of_type(Unity.SpriteRenderer.SpriteRenderer.type)
+            if sr is None:
+                continue
+
+            self.spriteAssigner.set_path_renderer(go.get_path(), sr.get_id())
+
+        self.spriteAssigner.optimize()
 
     def mangle(self, node, parent, parent_node, newBeDisabled = False):
         # this is a node of some type
@@ -106,6 +120,8 @@ class PrefabMaker(object):
 
             if self.metaReader:
                 sr.set_sprite_guid(self.metaReader.get_guid(node.get_file().get_name()))
+
+            self.spriteAssigner.add_sprite(node.get_file().get_name(), go.get_path(), sr.get_sprite_guid())
 
             go.add_component(sr)
 

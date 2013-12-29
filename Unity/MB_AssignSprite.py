@@ -10,11 +10,29 @@ class MB_AssignSprite(MonoBehaviour):
     GUID = '99fd3c019d4a14ac88074a420bba7c77'
 
     class Helper:
-        def __init__(self, spriteName, pathName, spriteGUID, spriteRendererID):
+        def __init__(self, spriteName, pathName, spriteGUID):
             self.spriteName = spriteName
             self.pathName = pathName
             self.spriteGUID = spriteGUID
-            self.rendererID = spriteRendererID
+            self.rendererID = None
+
+        def assign_renderer(self, rendererID):
+            self.rendererID = rendererID
+
+        def get_path(self):
+            return self.pathName
+
+        def __eq__(self, other):
+            if self.spriteName != other.spriteName:
+                return False
+            if self.pathName != other.pathName:
+                return False
+            if self.spriteGUID != other.spriteGUID:
+                return False
+            if self.rendererID != other.rendererID:
+                return False
+
+            return True
 
         def to_string(self):
             outList = []
@@ -30,8 +48,35 @@ class MB_AssignSprite(MonoBehaviour):
         super(self.__class__, self).__init__(MB_AssignSprite.GUID)
         self.spriteList = []
 
-    def add_sprite(self, spriteName, pathName, spriteGUID, spriteRendererID):
-        self.spriteList.append(MB_AssignSprite.Helper(spriteName, pathName, spriteGUID, spriteRendererID))
+    def add_sprite(self, spriteName, pathName, spriteGUID):
+        self.spriteList.append(MB_AssignSprite.Helper(spriteName, pathName, spriteGUID))
+
+    def set_path_renderer(self, pathName, rendererID):
+        for elem in self.spriteList:
+            if elem.get_path() != pathName:
+                continue
+
+            elem.assign_renderer(rendererID)
+
+    def optimize(self):
+        # remove duplicated entries
+        outList = []
+
+        # simple O(n^2) search
+        for elem in self.spriteList:
+            isSame = False
+
+            for tmpElem in outList:
+                if elem == tmpElem:
+                    isSame = True
+                    break
+
+            if isSame:
+                continue
+
+            outList.append(elem)
+
+        self.spriteList = outList
 
     def to_string_params(self):
         outList = []

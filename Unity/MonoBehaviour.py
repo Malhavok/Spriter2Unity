@@ -7,12 +7,16 @@ class MonoBehaviour(Component):
     type = 114
 
     def __init__(self, GUID):
-        super(self.__class__, self).__init__(MonoBehaviour.type, MonoBehaviour.globalId)
+        # as it can be inherited, i have to point MonoBehaviour as the class type
+        # otherwise it'd try to call MonoBehaviour super instead
+        super(MonoBehaviour, self).__init__(MonoBehaviour.type, MonoBehaviour.globalId)
         MonoBehaviour.globalId += 2
 
         # global unique ID for script that have to be attached
         self.GUID = GUID
 
+    def get_guid(self):
+        return self.GUID
 
     def to_string_params(self):
         # fill this to assign values to scripts
