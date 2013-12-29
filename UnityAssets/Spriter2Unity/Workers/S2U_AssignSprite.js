@@ -63,6 +63,7 @@ function replacePartWithFolder(folderName : String, prefixSpriteName : String) :
 		var dirName : String = Path.GetDirectoryName(assetPathFull);
 		var fileNameNoExt : String = Path.GetFileNameWithoutExtension(assetPathFull);
 		var assetPath : String = Path.Combine(dirName, fileNameNoExt);
+		assetPath = pathToAssetPath(assetPath);
 		
 		var newSprite : Sprite = Resources.Load(assetPath, Sprite) as Sprite;
 		
@@ -78,6 +79,14 @@ function replacePartWithFolder(folderName : String, prefixSpriteName : String) :
 /// for programming troubles.
 ///
 
+/// \brief changes windows path to unix path
+///
+/// This step is requires as Resources.Load requires / and wont work with \
+///
+private function pathToAssetPath(inFolder : String) : String
+{
+	return inFolder.Replace('\\', '/');
+}
 
 /// \brief internal data structure
 ///
