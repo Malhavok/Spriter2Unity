@@ -4,3 +4,4 @@
 *.txt
 *.controller
 local_examples
+*.meta

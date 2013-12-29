@@ -18,7 +18,16 @@ class S2U_Prefab extends Object
 		objectMap = new Dictionary.<String, GameObject>();
 	}
 	
-	function prepare(entity : S2U_Entity, destDirectory : String)
+	function fakeStart(entityName : String)
+	{
+		objectMap.Clear();
+		root = new GameObject(entityName);
+		objectMap[""] = root;
+	}
+
+	function getRoot() : GameObject { return root; }
+
+	function prepare(entity : S2U_Entity, destDirectory : String) : GameObject
 	{
 		root = new GameObject(entity.getName());
 		objectMap[""] = root;
@@ -40,8 +49,9 @@ class S2U_Prefab extends Object
 
 		objectMap.Clear();
 		
+		clearFromStatics(root);
 		saveRoot(destDirectory);
-		GameObject.DestroyImmediate(root);
+		return root;
 	}
 	
 	private function getSortedAnimIdList(allAnims : Dictionary.<int, S2U_Animation>) : List.<int>
@@ -63,16 +73,17 @@ class S2U_Prefab extends Object
 		
 		for (var tmpKey : S2U_Key in refKeys)
 		{
+			var frameTime : float = tmpKey.getTime();
 			var refList : List.<S2U_BoneRef> = tmpKey.getRefList();
 			
 //			Debug.Log("Using key frame " + tmpKey.getId());
-			generateGOFromFrame(refList, anim, goActive);
+			generateGOFromFrame(refList, anim, frameTime, goActive);
 		
 			goActive = false;
 		}
 	}
 
-	private function generateGOFromFrame(refList : List.<S2U_BoneRef>, anim : S2U_Animation, goActive : boolean)
+	function generateGOFromFrame(refList : List.<S2U_BoneRef>, anim : S2U_Animation, timer : float, goActive : boolean)
 	{
 		var realScale : Vector2 = Vector2(1.0f, 1.0f);
 		// these are the guys that'll be parented to root
@@ -82,13 +93,13 @@ class S2U_Prefab extends Object
 		{
 			var sprite : S2U_ObjectRef = tmpObj as S2U_ObjectRef;
 			if (sprite != null)
-				generateGOFromObject(sprite, "", anim, realScale, goActive);
+				generateGOFromObject(sprite, "", anim, realScale, timer, goActive);
 			else
-				generateGOFromBone(tmpObj, "", refList, anim, realScale, goActive);
+				generateGOFromBone(tmpObj, "", refList, anim, realScale, timer, goActive);
 		}
 	}
 	
-	private function generateGOFromObject(sprite : S2U_ObjectRef, parentPath : String, anim : S2U_Animation, parentScale : Vector2, goActive : boolean) : void
+	private function generateGOFromObject(sprite : S2U_ObjectRef, parentPath : String, anim : S2U_Animation, parentScale : Vector2, keyTime : float, goActive : boolean) : void
 	{
 		// parent scale is here just to scale, nothing more will be done with it
 		// also - sprites have no children, so we don't need ref list!
@@ -111,6 +122,8 @@ class S2U_Prefab extends Object
 		outGO.SetActive(goActive);
 		outGO.name = timeline.getName();
 		outGO.transform.parent = parentGO.transform;
+		// should it be taken in animations? it's hacky so watch for it!
+		outGO.isStatic = Mathf.Abs(keyTime - key.getTime()) > 1e-2;
 		// add it to GameObject map
 		objectMap[goFullPath] = outGO;
 		
@@ -158,7 +171,7 @@ class S2U_Prefab extends Object
 			spriteRenderer.sprite = spriteImg;
 	}
 	
-	private function generateGOFromBone(bone : S2U_BoneRef, parentPath : String, refList : List.<S2U_BoneRef>, anim : S2U_Animation, parentScale : Vector2, goActive : boolean) : void
+	private function generateGOFromBone(bone : S2U_BoneRef, parentPath : String, refList : List.<S2U_BoneRef>, anim : S2U_Animation, parentScale : Vector2, keyTime : float, goActive : boolean) : void
 	{
 		// copy parent scale, we will change it
 		// we have to get children of this node from refList
@@ -177,6 +190,8 @@ class S2U_Prefab extends Object
 		outGO.SetActive(goActive);
 		outGO.name = timeline.getName();
 		outGO.transform.parent = parentGO.transform;
+		// should it be taken in animations? it's hacky so watch for it!
+		outGO.isStatic = Mathf.Abs(keyTime - key.getTime()) > 1e-2;
 		// add it to GameObject map
 		objectMap[goFullPath] = outGO;
 		
@@ -203,9 +218,9 @@ class S2U_Prefab extends Object
 		{
 			var sprite : S2U_ObjectRef = tmpObj as S2U_ObjectRef;
 			if (sprite != null)
-				generateGOFromObject(sprite, goFullPath, anim, scale, goActive);
+				generateGOFromObject(sprite, goFullPath, anim, scale, keyTime, goActive);
 			else
-				generateGOFromBone(tmpObj, goFullPath, refList, anim, scale, goActive);
+				generateGOFromBone(tmpObj, goFullPath, refList, anim, scale, keyTime, goActive);
 		}
 	}
 	
@@ -218,7 +233,7 @@ class S2U_Prefab extends Object
 		return parentPath + '/' + goName;
 	}
 	
-	private function getGOPath(go : GameObject) : String
+	static function getGOPath(go : GameObject) : String
 	{
 		if (go.transform.parent == null)
 			return go.name;
@@ -239,6 +254,17 @@ class S2U_Prefab extends Object
 		}
 		
 		return outList;
+	}
+	
+	private function clearFromStatics(go : GameObject)
+	{
+		go.isStatic = false;
+		
+		for (var tmp : Object in go.transform)
+		{
+			var tmpT : Transform = tmp as Transform;
+			clearFromStatics(tmpT.gameObject);
+		}
 	}
 	
 	private function saveRoot(outDir : String)

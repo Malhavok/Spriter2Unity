@@ -20,7 +20,7 @@ class S2U_Importer extends AssetPostprocessor
 			if (! str.EndsWith('.scml'))
 				continue;
 				
-			ImportSCML(str);
+			//ImportSCML(str);
 		}
 	}
 	

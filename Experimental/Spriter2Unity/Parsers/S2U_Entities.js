@@ -31,10 +31,16 @@ class S2U_Entities extends Object
 	function build(folders : S2U_Folders, outputDir : String)
 	{
 		var prefabBuilder : S2U_Prefab = S2U_Prefab(folders);
+		var animBuilder : S2U_UAnim = S2U_UAnim(folders);
+		
+		var animDir : String = Path.Combine(outputDir, 'Anims');
+		AssetDatabase.CreateFolder(outputDir, 'Anims');
 	
 		for (var entity : S2U_Entity in entities)
 		{
-			prefabBuilder.prepare(entity, outputDir);
+			var prefab : GameObject = prefabBuilder.prepare(entity, outputDir);
+			animBuilder.prepare(entity, prefab, animDir);
+			GameObject.DestroyImmediate(prefab);
 		}
 	}
 };
