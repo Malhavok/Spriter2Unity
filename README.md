@@ -5,13 +5,17 @@ Tool that converts SCML files into unity .prefab and .anim files
 
 This is an early version and is probably NOT working well, but it'll be fixed over time. It requires python installed in your system (but no special or external library is needed). Generated prefab's and anim's are in Unity text mode, dunno yet how it'll behave in the long run.
 
-!!! NOTICE !!!
+NOTICE
+======
+
 A major change was made.
 
 Each time using Spriter2Unity copy content of UnityAssets directory into your own project Asset directory.
 This means, that after operation you should have [unity project]/Assets/Spriter2Unity/ directory with some
 weird stuff inside.
-!!! EO NOTICE !!!
+
+About
+=====
 
 What it does:
 - for each entity in SCML file creates a Unity prefab
