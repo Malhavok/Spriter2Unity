@@ -369,22 +369,23 @@ class AnimationClip(object):
 
 #                cc.add_info(go.get_path(), t, [sprite_renderer.get_sprite_guid()])
 
-        finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
-        if self.isLooped:
-            finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
-
-        for go in finalKey:
-            if not go.does_take_part_in_anim_calcs():
-                continue
-            sprite_renderer = go.get_component_of_type(SpriteRenderer.type)
-            if sprite_renderer is None:
-                continue
-
-            evt = AnimationEvent(self.animTime)
-            animId = self.animationScript.get_idx_by_path_and_guid(go.get_path(), sprite_renderer.get_sprite_guid())
-            assert(animId >= 0)
-            evt.set_int_function('S2UInternal_AssignSprite', animId)
-            eventList.append(evt.to_string())
+        # not making "the final key" as it adds nothing, animation ends not calling it anyways
+#        finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
+#        if self.isLooped:
+#            finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
+#
+#        for go in finalKey:
+#            if not go.does_take_part_in_anim_calcs():
+#                continue
+#            sprite_renderer = go.get_component_of_type(SpriteRenderer.type)
+#            if sprite_renderer is None:
+#                continue
+#
+#            evt = AnimationEvent(self.animTime)
+#            animId = self.animationScript.get_idx_by_path_and_guid(go.get_path(), sprite_renderer.get_sprite_guid())
+#            assert(animId >= 0)
+#            evt.set_int_function('S2UInternal_AssignSprite', animId)
+#            eventList.append(evt.to_string())
 
         return '\n'.join(eventList)
 
