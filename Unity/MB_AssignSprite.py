@@ -22,6 +22,9 @@ class MB_AssignSprite(MonoBehaviour):
         def get_path(self):
             return self.pathName
 
+        def get_sprite_guid(self):
+            return self.spriteGUID
+
         def __eq__(self, other):
             if self.spriteName != other.spriteName:
                 return False
@@ -50,6 +53,17 @@ class MB_AssignSprite(MonoBehaviour):
 
     def add_sprite(self, spriteName, pathName, spriteGUID):
         self.spriteList.append(MB_AssignSprite.Helper(spriteName, pathName, spriteGUID))
+
+    def get_idx_by_path_and_guid(self, pathName, spriteGUID):
+        for idx in xrange(len(self.spriteList)):
+            if self.spriteList[idx].get_path() != pathName:
+                continue
+
+            if self.spriteList[idx].get_sprite_guid() != spriteGUID:
+                continue
+
+            return idx
+        return -1
 
     def set_path_renderer(self, pathName, rendererID):
         for elem in self.spriteList:

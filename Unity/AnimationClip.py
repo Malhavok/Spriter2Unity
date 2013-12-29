@@ -7,6 +7,9 @@ from CurveCalcSprite import CurveCalcSprite
 from Transform import Transform
 from SpriteRenderer import SpriteRenderer
 from GameObject import GameObject
+from AnimationEvent import AnimationEvent
+
+from MB_AssignSprite import MB_AssignSprite
 
 class AnimationClip(object):
     def __init__(self, name, animTimeSec, baseGOList):
@@ -19,6 +22,9 @@ class AnimationClip(object):
         # will not be touched!
         assert(len(baseGOList))
         self.baseGOList = baseGOList
+
+        self.animationScript = self.find_animation_script()
+        assert(self.animationScript)
 
 
     def set_looped(self, isLooped):
@@ -37,6 +43,16 @@ class AnimationClip(object):
             f.write(outStr)
 
 
+    def find_animation_script(self):
+        for go in self.baseGOList:
+            script = go.get_mono_behaviour_by_guid(MB_AssignSprite.GUID)
+            if not script:
+                continue
+
+            return script
+        return None
+
+
     def to_string(self):
         outList = []
 
@@ -45,7 +61,10 @@ class AnimationClip(object):
         scaleCurves, editorScaleData = self.calc_scale_curves()
         floatingCurves, editorFloatCurves = self.calc_active_curves()
         floatAlpha, editorFloatAlpha = self.calc_alpha_curves()
-        pptrCurves = self.calc_pptr_curves()
+
+        # disable normal events
+        pptrCurves = None # self.calc_pptr_curves()
+        eventCurves = self.calc_animation_events()
 
         outList.append('%YAML 1.1')
         outList.append('%TAG !u! tag:unity3d.com,2011:')
@@ -143,7 +162,11 @@ class AnimationClip(object):
         # place euler editor curves here
         outList.append('  m_EulerEditorCurves: []')
 
-        outList.append('  m_Events: []')
+        if eventCurves is None:
+            outList.append('  m_Events: []')
+        else:
+            outList.append('  m_Events:')
+            outList.append(self.tabber(2, eventCurves, ' '))
 
         return '\n'.join(outList)
 
@@ -322,6 +345,49 @@ class AnimationClip(object):
 
         # sprite changing generate NO editor curve
         return cc.to_editor_string(SpriteRenderer.type, 'm_Sprite')
+
+
+    def calc_animation_events(self):
+        if len(self.keyframes) == 0:
+            return None
+
+        eventList = []
+
+        for t in self.keyframes.keys():
+            for go in self.keyframes[t]:
+                if not go.does_take_part_in_anim_calcs():
+                    continue
+                sprite_renderer = go.get_component_of_type(SpriteRenderer.type)
+                if sprite_renderer is None:
+                    continue
+
+                evt = AnimationEvent(t)
+                animId = self.animationScript.get_idx_by_path_and_guid(go.get_path(), sprite_renderer.get_sprite_guid())
+                assert(animId >= 0)
+                evt.set_int_function('S2UInternal_AssignSprite', animId)
+                eventList.append(evt.to_string())
+
+#                cc.add_info(go.get_path(), t, [sprite_renderer.get_sprite_guid()])
+
+        finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
+        if self.isLooped:
+            finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
+
+        for go in finalKey:
+            if not go.does_take_part_in_anim_calcs():
+                continue
+            sprite_renderer = go.get_component_of_type(SpriteRenderer.type)
+            if sprite_renderer is None:
+                continue
+
+            evt = AnimationEvent(self.animTime)
+            animId = self.animationScript.get_idx_by_path_and_guid(go.get_path(), sprite_renderer.get_sprite_guid())
+            assert(animId >= 0)
+            evt.set_int_function('S2UInternal_AssignSprite', animId)
+            eventList.append(evt.to_string())
+
+        return '\n'.join(eventList)
+
 
     def tabber(self, num, text, ch = '\t'):
         split = text.splitlines()

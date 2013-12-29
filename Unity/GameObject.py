@@ -89,7 +89,7 @@ class GameObject(object):
 
     def get_mono_behaviour_by_guid(self, scriptGUID):
         for cmp in self.components:
-            if cmp.get_type() != MonoBehaviour.get_guid():
+            if cmp.get_type() != MonoBehaviour.type:
                 continue
 
             if cmp.get_guid() != scriptGUID:
