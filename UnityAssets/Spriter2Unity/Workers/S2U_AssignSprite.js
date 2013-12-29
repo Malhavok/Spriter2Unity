@@ -5,6 +5,10 @@ import System.IO;
 
 /// \brief interface for chaning whole sprite list
 ///
+/// ! WARNING
+/// Internally uses Resources.Load, so you have to take care
+/// of unloading useless resources yourself
+///
 /// Using this method you can point a folder within
 /// some Resources directory to change all sprites
 /// of this model with sprites from a given folder.
@@ -23,6 +27,10 @@ function replaceFullWithFolder(folderName : String) : void
 }
 
 /// \brief interface for chaning part of a sprite list
+///
+/// ! WARNING
+/// Internally uses Resources.Load, so you have to take care
+/// of unloading useless resources yourself
 ///
 /// Using this method you can point a folder within
 /// some Resources directory to change some sprites
