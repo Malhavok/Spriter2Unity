@@ -14,6 +14,10 @@ Each time using Spriter2Unity copy content of UnityAssets directory into your ow
 This means, that after operation you should have [unity project]/Assets/Spriter2Unity/ directory with some
 weird stuff inside.
 
+Remember, that every time you're downloading a new version you have to export all your animations again
+and you have to update your project with newest scripts from UnityAssets directory. Without this steps
+nothing can work for sure.
+
 About
 =====
 
