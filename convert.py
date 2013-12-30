@@ -34,7 +34,7 @@ def export_to_unity(scmlFile, unityDir):
         for animId in xrange(numAnim):
             anim = entity.get_anim(animId)
             num_frames = anim.get_num_key_frames()
-            print '  Preparing animation', anim.get_name()
+            print '    Preparing animation', anim.get_name()
 
             ac = Unity.AnimationClip.AnimationClip(anim.get_name(), anim.get_time(), pm.get_prefab_go_list())
             ac.set_looped(anim.is_looped())
@@ -48,7 +48,7 @@ def export_to_unity(scmlFile, unityDir):
                 ac.add_key_frame(kf.get_time(), tmpPM.get_game_object_list())
 
             ac.save()
-            print '  Done.'
+            print '    Done.'
 
 
 if len(sys.argv) < 3:
