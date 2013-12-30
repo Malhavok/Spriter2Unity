@@ -11,6 +11,7 @@ class Animation(object):
         self.name = None
         self.length_ms = None
         self.length = None
+        self.loop = True
 
         self.mainline = {}
         self.timeline = {}
@@ -18,7 +19,6 @@ class Animation(object):
         self.fileKeeper = None
 
         self.parse(node)
-
 
     def get_id(self):
         return self.id
@@ -29,6 +29,9 @@ class Animation(object):
     def get_time(self):
         ## time in seconds
         return self.length
+
+    def is_looped(self):
+        return self.loop
 
     def get_key_frame(self, idx):
         if idx not in self.mainline:
@@ -48,6 +51,8 @@ class Animation(object):
         self.name = node.attrib['name']
         self.length_ms = float(node.attrib['length'])
         self.length = self.length_ms / 1000.0
+
+        self.loop = node.attrib.get('looping', 'true') != 'false'
 
         for elem in node:
             if elem.tag == 'mainline':

@@ -37,6 +37,7 @@ def export_to_unity(scmlFile, unityDir):
             print '  Preparing animation', anim.get_name()
 
             ac = Unity.AnimationClip.AnimationClip(anim.get_name(), anim.get_time(), pm.get_prefab_go_list())
+            ac.set_looped(anim.is_looped())
 
             for idx in xrange(num_frames):
                 kf = anim.get_key_frame(idx)
