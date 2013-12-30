@@ -1,7 +1,7 @@
 ﻿#pragma strict
 
 import System.IO;
-
+import System.Text.RegularExpressions;
 
 /// \brief interface for chaning whole sprite list
 ///
@@ -117,6 +117,119 @@ class S2U_SpriteInfo
 	}
 }
 
+/// \brief internal data structure
+///
+/// This one parses incomming animation marker
+/// in form "string.number" into animation name
+/// and animation index.
+///
+/// sadly, it seems that unity doesn't support
+/// compiled regexs so it can be slower than
+/// it should :/
+///
+class S2U_MarkerReader extends Object
+{
+	static private var regex : Regex;
+
+	private var animName : String;
+	private var animIdx : int;
+	
+	function S2U_MarkerReader(marker : String)
+	{
+		if (! regex)
+		{
+			// sadly, in unity, regex cannot be "compiled"
+			regex = Regex("^(.*)\\.(\\d+)$");
+		}
+	
+		var regexRes : String[] = regex.Split(marker);
+		
+		if (regexRes.Length != 4)
+			Debug.LogError("Wrong length of the marker regex split: " + regexRes.Length);
+			
+		animName = regexRes[1];
+		// this will throw an exception on error
+		animIdx = int.Parse(regexRes[2]);
+	}
+	
+	function getAnimName() : String { return animName; }
+	function getAnimIdx() : int { return animIdx; }
+}
+
+/// \brief internal data structure
+///
+/// IF you're using animator (and you know you should)
+/// this checks whether animation events during transitions
+/// are comming ONLY from the "next" animation and not
+/// the current one
+///
+/// There is a lot of assumptions in here:
+/// - layer that is checked for transitions and animations
+///   is only one, defined by layerToCheck variable
+/// - it also assumes that name of the layerToCheck doesn't
+///   change during runtime and is cached on first "check"
+/// - assumes that this site:
+///   http://docs.unity3d.com/Documentation/ScriptReference/AnimatorStateInfo.IsName.html
+///   is up to date (and it seems so)
+///
+/// Whenever there is transition a check is made for each marker
+/// if the marker doesn't belong to the "next" animation, it is
+/// skipped, so it doesn't change sprites. In most other cases
+/// it should fail-fast and allow sprite changing.
+///
+/// sidenote: i'm kinda worried about performance of this one :/
+///           it may get messy with ~300 sprites on the screen at once
+///           and that's not an unreasonable number :/
+///
+class S2U_TransitionChecker extends Object
+{
+	private var layerToCheck : int = 0;
+	private var baseGO : GameObject;
+
+	private var hasAnimator : boolean = true;
+	private var animator : Animator = null;
+	private var layerName : String;
+
+	function S2U_TransitionChecker(go : GameObject)
+	{
+		baseGO = go;
+	}
+	
+	function check(markerReader : S2U_MarkerReader) : boolean
+	{
+		if (! hasAnimator)
+			return true;
+			
+		if (animator == null && ! prepareAnimator())
+			return true;
+	
+		if (! animator.IsInTransition(layerToCheck))
+			return true;
+	
+		var nextState : AnimatorStateInfo = animator.GetNextAnimatorStateInfo(0);
+		var animStateName : String = layerName + "." + markerReader.getAnimName();
+		
+		if (! nextState.IsName(animStateName))
+			return false;
+
+		return true;
+	}
+	
+	private function prepareAnimator() : boolean
+	{
+		animator = baseGO.GetComponent(Animator) as Animator;
+		hasAnimator = animator != null;
+
+		if (! hasAnimator)
+			return false;
+	
+		// cached for checks
+		layerName = animator.GetLayerName(layerToCheck);
+	
+		return true;
+	}
+}
+
 /// \brief list of all sprites that can be "called" and changed
 ///
 /// For all purposes consider this list PRIVATE and do NO assumptions about it
@@ -124,13 +237,31 @@ class S2U_SpriteInfo
 ///
 var spriteList : S2U_SpriteInfo[];
 
+/// \brief instance used to check whether animation event should be accepted
+///
+private var transitionChecker : S2U_TransitionChecker;
+
+
+/// \brief initializer
+///
+/// Prepares data structure used to control transition animation events
+///
+function Start()
+{
+	transitionChecker = S2U_TransitionChecker(gameObject);
+}
+
 /// \brief Function that changes sprites
 ///
 /// This function is called in every generated animation. It changes sprites
 /// to the one pointed by animation. All calls to this method are internal
 /// and this method shouldn't be touched.
 ///
-function S2UInternal_AssignSprite(idx : int) : void
+function S2UInternal_AssignSprite(marker : String) : void
 {
-	spriteList[idx].assign();
+	var markerReader : S2U_MarkerReader = S2U_MarkerReader(marker);
+	if (! transitionChecker.check(markerReader))
+		return;
+
+	spriteList[markerReader.getAnimIdx()].assign();
 }

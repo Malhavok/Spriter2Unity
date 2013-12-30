@@ -364,7 +364,8 @@ class AnimationClip(object):
                 evt = AnimationEvent(t)
                 animId = self.animationScript.get_idx_by_path_and_guid(go.get_path(), sprite_renderer.get_sprite_guid())
                 assert(animId >= 0)
-                evt.set_int_function('S2UInternal_AssignSprite', animId)
+                animMarker = '%s.%d' % (self.name, animId)
+                evt.set_str_function('S2UInternal_AssignSprite', animMarker)
                 eventList.append(evt.to_string())
 
 #                cc.add_info(go.get_path(), t, [sprite_renderer.get_sprite_guid()])

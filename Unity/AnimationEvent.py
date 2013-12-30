@@ -17,6 +17,10 @@ class AnimationEvent(object):
         self.functionName = funName
         self.intParam = intVal
 
+    def set_str_function(self, funName, strVal):
+        self.functionName = funName
+        self.strParam = strVal
+
     def to_string(self):
         outList = []
 
