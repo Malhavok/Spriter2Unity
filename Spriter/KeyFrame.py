@@ -32,7 +32,8 @@ class KeyFrame(object):
         starter = self.get_from_key_with_parent(node.get_bone_id())
 
         if len(starter) == 0:
-            Utils.print_error('There are no parentless nodes', [node, self.key, self.timeline])
+            print 'WARNING: found a bone with no children attached:', node.get_name(), 'id:', node.get_bone_id()
+#            Utils.print_error('There are no nodes with this node as parent', [node, self.key, self.timeline])
 
         for st in starter:
             obj = None

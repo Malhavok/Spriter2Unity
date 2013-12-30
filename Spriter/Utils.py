@@ -11,6 +11,13 @@ def print_error(msg, objs):
 
     for o in objs:
         print '----', o.__class__, '----'
-        print o
 
-    exit(1)
+        if type(o) is dict:
+            for k in o.keys():
+                print '--->', k
+                print o[k]
+                print
+        else:
+            print o
+
+    assert(False)

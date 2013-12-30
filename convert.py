@@ -25,13 +25,16 @@ def export_to_unity(scmlFile, unityDir):
 
     # do all entities
     for entity in entities:
+        print '  Preparing prefab for', entity.get_name()
         pm = PrefabMaker(mr)
         pm.make_prefab(entity)
+        print '  Done.'
 
         numAnim = entity.get_num_anims()
         for animId in xrange(numAnim):
             anim = entity.get_anim(animId)
             num_frames = anim.get_num_key_frames()
+            print '  Preparing animation', anim.get_name()
 
             ac = Unity.AnimationClip.AnimationClip(anim.get_name(), anim.get_time(), pm.get_prefab_go_list())
 
@@ -44,6 +47,7 @@ def export_to_unity(scmlFile, unityDir):
                 ac.add_key_frame(kf.get_time(), tmpPM.get_game_object_list())
 
             ac.save()
+            print '  Done.'
 
 
 if len(sys.argv) < 3:
