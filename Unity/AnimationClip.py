@@ -179,20 +179,29 @@ class AnimationClip(object):
 
         for t in self.keyframes.keys():
             for go in self.keyframes[t]:
-                if not go.does_take_part_in_anim_calcs():
-                    continue
                 transform = go.get_component_of_type(Transform.type)
-                cc.add_info(go.get_path(), t, transform.get_position())
+                pos = transform.get_position()
+                if not go.does_take_part_in_anim_calcs():
+                    # ok, this is important
+                    # even thou time marker for sprite doesn't match it doesn't mean that
+                    # Z position shouldn't be taken into account.
+                    # this is the weirdest bug i have to fix and i'd say
+                    # !!! i'd be good to rewrite most of this code before going further
+                    cc.add_info(go.get_path(), t, (None, None, pos[2]))
+                    continue
+                cc.add_info(go.get_path(), t, pos)
 
         finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
         if self.isLooped:
             finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
 
         for go in finalKey:
-            if not go.does_take_part_in_anim_calcs():
-                continue
             transform = go.get_component_of_type(Transform.type)
-            cc.add_info(go.get_path(), self.animTime, transform.get_position())
+            pos = transform.get_position()
+            if not go.does_take_part_in_anim_calcs():
+                cc.add_info(go.get_path(), self.animTime, (None, None, pos[2]))
+                continue
+            cc.add_info(go.get_path(), self.animTime, pos)
 
         # string to write it down, data for editor curves
         return cc.to_string(), cc.to_editor_string(Transform.type, 'm_LocalPosition')

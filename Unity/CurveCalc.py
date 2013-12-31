@@ -125,6 +125,9 @@ class CurveCalc(object):
         if numKeys < 2:
             return None
 
+        # terrible hack, see AnimationClip::calc_position_curves for more details
+        self.fix_holes(dataDict)
+
         for idx in xrange(numKeys):
             time = timeKeys[idx]
             time2 = timeKeys[(idx + 1) % numKeys]
@@ -188,3 +191,57 @@ class CurveCalc(object):
                 outDict['outSlope'].append('Infinity')
 
         return outDict
+
+    def fix_holes(self, inDict):
+        # what does it do:
+        # it finds None values as 1st and 2nd element and interpolates them
+        # it's an error if such values appear at the start of the dict
+        # !!! whenever it'll be fixed i should start again by redoing most
+        # !!! of this ugly code into something more manageable
+        timeKeys = sorted(inDict.keys())
+
+        startTimeIdx = 0
+        seekingEnd = False
+
+        # this is terrible and hacky...
+        assert(inDict[timeKeys[0]] is not None)
+
+        for timeIdx in xrange(1, len(timeKeys)):
+            currVal = inDict[timeKeys[timeIdx]]
+
+            if seekingEnd:
+                if currVal[0] is not None:
+                    # yupi!
+                    print 'Found end of this path at idx:', timeIdx, timeKeys[timeIdx]
+                    seekingEnd = False
+                    self.fix_dict_holes(inDict, startTimeIdx, timeIdx)
+            else:
+                if currVal[0] is None:
+                    print 'Found start of this path at idx:', startTimeIdx, timeKeys[startTimeIdx]
+                    seekingEnd = True
+                else:
+                    startTimeIdx = timeIdx
+
+    def fix_dict_holes(self, inDict, startIdx, endIdx):
+        print '  Fixing from', startIdx, endIdx
+        timeKeys = sorted(inDict.keys())
+
+        startTime = timeKeys[startIdx]
+        endTime = timeKeys[endIdx]
+        timeDiff = endTime - startTime
+
+        startVal = inDict[startTime]
+        endVal = inDict[endTime]
+
+        # linear interpolation
+
+        for idx in xrange(startIdx + 1, endIdx):
+            print '    Working on idx', idx
+            timeVal = timeKeys[idx]
+            percent = (timeVal - startTime) / timeDiff
+            currVal = inDict[timeVal]
+
+            newX = startVal[0] * (1.0 - percent) + endVal[0] * (percent)
+            newY = startVal[1] * (1.0 - percent) + endVal[1] * (percent)
+
+            inDict[timeVal] = (newX, newY, currVal[2])
