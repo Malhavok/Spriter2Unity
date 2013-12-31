@@ -137,7 +137,7 @@ class CurveCalc(object):
                 print d1, d2
                 print 'base data'
                 print dataDict
-                exit(1)
+                assert(False)
 
             elem = self.calc_elems(time, time2, d1, d2)
             elem['time'] = time
@@ -168,6 +168,11 @@ class CurveCalc(object):
             v1 = d1[idx]
             v2 = d2[idx]
 
+            # THE ugliest piece of code around
+            # this is the fix for Z changing in positions
+            # as Z is order index, it have to change in an instant
+            # to properly reflect animation
+            # !!! this have to be fixed and made nicer
             if idx != 2:
                 slopeTg = (v1 - v2) / (x1 - x2)
 
