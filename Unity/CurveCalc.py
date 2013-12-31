@@ -212,12 +212,12 @@ class CurveCalc(object):
             if seekingEnd:
                 if currVal[0] is not None:
                     # yupi!
-                    print 'Found end of this path at idx:', timeIdx, timeKeys[timeIdx]
+#                    print 'Found end of this path at idx:', timeIdx, timeKeys[timeIdx]
                     seekingEnd = False
                     self.fix_dict_holes(inDict, startTimeIdx, timeIdx)
             else:
                 if currVal[0] is None:
-                    print 'Found start of this path at idx:', startTimeIdx, timeKeys[startTimeIdx]
+#                    print 'Found start of this path at idx:', startTimeIdx, timeKeys[startTimeIdx]
                     seekingEnd = True
                 else:
                     startTimeIdx = timeIdx
@@ -229,7 +229,7 @@ class CurveCalc(object):
                 inDict[timeKeys[idx]] = (baseVal[0], baseVal[1], currVal[2])
 
     def fix_dict_holes(self, inDict, startIdx, endIdx):
-        print '  Fixing from', startIdx, endIdx
+#        print '  Fixing from', startIdx, endIdx
         timeKeys = sorted(inDict.keys())
 
         startTime = timeKeys[startIdx]
@@ -242,7 +242,7 @@ class CurveCalc(object):
         # linear interpolation
 
         for idx in xrange(startIdx + 1, endIdx):
-            print '    Working on idx', idx
+#            print '    Working on idx', idx
             timeVal = timeKeys[idx]
             percent = (timeVal - startTime) / timeDiff
             currVal = inDict[timeVal]
