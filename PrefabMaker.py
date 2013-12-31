@@ -11,6 +11,10 @@ class PrefabMaker(object):
         self.saver = Unity.PrefabSaver.PrefabSaver()
         self.metaReader = metaReader
         self.spriteAssigner = Unity.MB_AssignSprite.MB_AssignSprite()
+        self.fixDuplicateObjects = False
+
+    def fix_duplicates(self):
+        self.fixDuplicateObjects = True
 
     def get_game_object_list(self):
         return self.go_map.values()
@@ -147,6 +151,19 @@ class PrefabMaker(object):
                 self.go_map[go.get_parent_path()].add_child(go)
 
             self.go_map[go.get_path()] = go
+        else:
+            if self.fixDuplicateObjects:
+                print 'WARNING! duplicate object found:', go.get_name()
+                oldGO = self.go_map[go.get_path()]
+                oldTransform = oldGO.get_component_of_type(Unity.Transform.Transform.type)
+                oldPos = oldTransform.get_position()
+                currPos = transform.get_position()
+
+                # sanity checks
+                assert(math.fabs(oldPos[0] - currPos[0]) < 1e-3)
+                assert(math.fabs(oldPos[1] - currPos[1]) < 1e-3)
+
+                oldTransform.set_position(oldPos[0], oldPos[1], min(oldPos[2], currPos[2]))
 
         for subNode in node.get_children():
             self.mangle(subNode, go, node, newBeDisabled)

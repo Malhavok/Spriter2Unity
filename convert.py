@@ -43,6 +43,7 @@ def export_to_unity(scmlFile, unityDir):
                 kf = anim.get_key_frame(idx)
 
                 tmpPM = PrefabMaker(mr)
+                tmpPM.fix_duplicates()
                 tmpPM.generate_game_objects(entity, animId, idx)
 
                 ac.add_key_frame(kf.get_time(), tmpPM.get_game_object_list())
