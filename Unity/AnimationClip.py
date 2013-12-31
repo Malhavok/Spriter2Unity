@@ -282,13 +282,13 @@ class AnimationClip(object):
                 cc.add_info(go.get_path(), t, 0)
 
 
-        finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
-        if self.isLooped:
-            finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
-
-        for go in finalKey:
-            transform = go.get_component_of_type(Transform.type)
-            cc.add_info(go.get_path(), self.animTime, transform.get_position())
+#        finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
+#        if self.isLooped:
+#            finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
+#
+#        for go in finalKey:
+#            transform = go.get_component_of_type(Transform.type)
+#            cc.add_info(go.get_path(), self.animTime, transform.get_position())
 
         # string to write it down, data for editor curves
         return cc.to_editor_string(GameObject.type, 'm_IsActive'), cc.to_editor_string(GameObject.type, 'm_IsActive')
