@@ -222,6 +222,12 @@ class CurveCalc(object):
                 else:
                     startTimeIdx = timeIdx
 
+        if seekingEnd:
+            baseVal = inDict[timeKeys[startTimeIdx]]
+            for idx in xrange(startTimeIdx, len(timeKeys)):
+                currVal = inDict[timeKeys[idx]]
+                inDict[timeKeys[idx]] = (baseVal[0], baseVal[1], currVal[2])
+
     def fix_dict_holes(self, inDict, startIdx, endIdx):
         print '  Fixing from', startIdx, endIdx
         timeKeys = sorted(inDict.keys())
