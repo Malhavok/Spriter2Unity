@@ -14,12 +14,17 @@ class CurveCalcRot(CurveCalc):
         if path not in self.info:
             self.info[path] = {}
 
+        if angle is None:
+            self.info[path][time] = None
+            return
+
         clampedAngle = math.fmod(angle, 2.0 * math.pi)
         assert(0.0 <= clampedAngle < 2.0 * math.pi)
         self.info[path][time] = clampedAngle
 
 
     def mangle_data(self, dataDict):
+        self.fix_holes(dataDict)
         newDataDict = self.interpolate(dataDict)
 
         timeKeys = sorted(newDataDict.keys())
@@ -150,3 +155,62 @@ class CurveCalcRot(CurveCalc):
             temp = total + y
             compo = (temp - total) - y
             total = temp
+
+    def fix_holes(self, inDict):
+        # what does it do:
+        # it finds None values as 1st and 2nd element and interpolates them
+        # it's an error if such values appear at the start of the dict
+        # !!! whenever it'll be fixed i should start again by redoing most
+        # !!! of this ugly code into something more manageable
+        timeKeys = sorted(inDict.keys())
+
+        startTimeIdx = 0
+        seekingEnd = False
+
+        # this is terrible and hacky...
+        assert(inDict[timeKeys[0]] is not None)
+
+        for timeIdx in xrange(1, len(timeKeys)):
+            currVal = inDict[timeKeys[timeIdx]]
+
+            if seekingEnd:
+                if currVal is not None:
+                # yupi!
+                #                    print 'Found end of this path at idx:', timeIdx, timeKeys[timeIdx]
+                    seekingEnd = False
+                    self.fix_dict_holes(inDict, startTimeIdx, timeIdx)
+            else:
+                if currVal is None:
+                #                    print 'Found start of this path at idx:', startTimeIdx, timeKeys[startTimeIdx]
+                    seekingEnd = True
+                else:
+                    startTimeIdx = timeIdx
+
+        if seekingEnd:
+            baseVal = inDict[timeKeys[startTimeIdx]]
+            for idx in xrange(startTimeIdx, len(timeKeys)):
+                inDict[timeKeys[idx]] = baseVal
+
+    def fix_dict_holes(self, inDict, startIdx, endIdx):
+    #        print '  Fixing from', startIdx, endIdx
+        timeKeys = sorted(inDict.keys())
+
+        startTime = timeKeys[startIdx]
+        endTime = timeKeys[endIdx]
+        timeDiff = endTime - startTime
+
+        startVal = inDict[startTime]
+        endVal = self.closest_angle(startVal, inDict[endTime])
+        inDict[endTime] = endVal
+
+        # linear interpolation
+        slope = (endVal - startVal) / timeDiff
+        offset = endVal - slope * endTime
+
+        for idx in xrange(startIdx + 1, endIdx):
+        #            print '    Working on idx', idx
+            timeVal = timeKeys[idx]
+
+            newAngle = slope * timeVal + offset
+
+            inDict[timeVal] = newAngle

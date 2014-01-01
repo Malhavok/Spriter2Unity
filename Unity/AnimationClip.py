@@ -214,10 +214,12 @@ class AnimationClip(object):
 
         for t in self.keyframes.keys():
             for go in self.keyframes[t]:
-                if not go.does_take_part_in_anim_calcs():
-                    continue
                 transform = go.get_component_of_type(Transform.type)
-                cc.add_angle_info(go.get_path(), t, transform.get_z_angle())
+                rot = transform.get_z_angle()
+                if not go.does_take_part_in_anim_calcs():
+                    cc.add_angle_info(go.get_path(), t, None)
+                    continue
+                cc.add_angle_info(go.get_path(), t, rot)
 
         # missing key at the end of animation
         finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
@@ -225,10 +227,12 @@ class AnimationClip(object):
             finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
 
         for go in finalKey:
-            if not go.does_take_part_in_anim_calcs():
-                continue
             transform = go.get_component_of_type(Transform.type)
-            cc.add_angle_info(go.get_path(), self.animTime, transform.get_z_angle())
+            rot = transform.get_z_angle()
+            if not go.does_take_part_in_anim_calcs():
+                cc.add_angle_info(go.get_path(), self.animTime, None)
+                continue
+            cc.add_angle_info(go.get_path(), self.animTime, rot)
 
         # string to write it down, data for editor curves
         # note that euler curves are missing, but Unity ain't very picky about it
@@ -242,20 +246,24 @@ class AnimationClip(object):
 
         for t in self.keyframes.keys():
             for go in self.keyframes[t]:
-                if not go.does_take_part_in_anim_calcs():
-                    continue
                 transform = go.get_component_of_type(Transform.type)
-                cc.add_info(go.get_path(), t, transform.get_scale())
+                scale = transform.get_scale()
+                if not go.does_take_part_in_anim_calcs():
+                    cc.add_info(go.get_path(), t, (None, None, scale[2]))
+                    continue
+                cc.add_info(go.get_path(), t, scale)
 
         finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
         if self.isLooped:
             finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
 
         for go in finalKey:
-            if not go.does_take_part_in_anim_calcs():
-                continue
             transform = go.get_component_of_type(Transform.type)
-            cc.add_info(go.get_path(), self.animTime, transform.get_scale())
+            scale = transform.get_scale()
+            if not go.does_take_part_in_anim_calcs():
+                cc.add_info(go.get_path(), self.animTime, (None, None, scale[2]))
+                continue
+            cc.add_info(go.get_path(), self.animTime, scale)
 
         # string to write it down, data for editor curves
         return cc.to_string(), cc.to_editor_string(Transform.type, 'm_LocalScale')
