@@ -249,7 +249,7 @@ class AnimationClip(object):
                 transform = go.get_component_of_type(Transform.type)
                 scale = transform.get_scale()
                 if not go.does_take_part_in_anim_calcs():
-                    cc.add_info(go.get_path(), t, (None, None, scale[2]))
+#                    cc.add_info(go.get_path(), t, (None, None, scale[2]))
                     continue
                 cc.add_info(go.get_path(), t, scale)
 
@@ -261,7 +261,7 @@ class AnimationClip(object):
             transform = go.get_component_of_type(Transform.type)
             scale = transform.get_scale()
             if not go.does_take_part_in_anim_calcs():
-                cc.add_info(go.get_path(), self.animTime, (None, None, scale[2]))
+#                cc.add_info(go.get_path(), self.animTime, (None, None, scale[2]))
                 continue
             cc.add_info(go.get_path(), self.animTime, scale)
 
