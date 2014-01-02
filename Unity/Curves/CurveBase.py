@@ -62,7 +62,7 @@ class CurveBase(object):
         assert key is not None
 
         self.__pointMap[key] = KVPoint(key, value)
-        self.__sortedKeys = None
+        self.__invalidate_sorted_keys()
 
 
     def get_point_at(self, key):
@@ -81,9 +81,13 @@ class CurveBase(object):
         return kvPointAtKey.get_value(), inSlope, outSlope
 
 
+    def get_all_keys(self):
+        self.__generate_sorted_keys()
+        return self.__sortedKeys
+
+
     def __get_kv_point_at(self, key):
-        if not self.__sortedKeys:
-            self.__sortedKeys = sorted(self.__pointMap.keys())
+        self.__generate_sorted_keys()
 
         prevKey = self.__get_previous_key(key)
         nextKey = self.__get_next_key(key)
@@ -109,6 +113,16 @@ class CurveBase(object):
 
         idx = bisect.bisect_right(self.__sortedKeys, key)
         return self.__sortedKeys[idx] if idx < len(self.__sortedKeys) else None
+
+
+    def __generate_sorted_keys(self):
+        if self.__sortedKeys:
+            return
+        self.__sortedKeys = sorted(self.__pointMap.keys())
+
+
+    def __invalidate_sorted_keys(self):
+        self.__sortedKeys = None
 
 
     def _interpolate(self, kvPointPrev, kvPointNext, desiredKey):
