@@ -102,15 +102,13 @@ class CurveBase(object):
 
 
     def __get_previous_key(self, key):
-        assert self.__sortedKeys and len(self.__sortedKeys)
-
+        assert self.__sortedKeys is not None
         idx = bisect.bisect_left(self.__sortedKeys, key) - 1
         return self.__sortedKeys[idx] if idx >= 0 else None
 
 
     def __get_next_key(self, key):
-        assert self.__sortedKeys and len(self.__sortedKeys)
-
+        assert self.__sortedKeys is not None
         idx = bisect.bisect_right(self.__sortedKeys, key)
         return self.__sortedKeys[idx] if idx < len(self.__sortedKeys) else None
 
