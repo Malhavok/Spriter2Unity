@@ -8,8 +8,10 @@ class CurveInstant(CurveBase):
     def __init__(self):
         super(CurveInstant, self).__init__()
 
+
     def _interpolate(self, kvPointPrev, kvPointNext, _desiredKey):
         return kvPointPrev if kvPointPrev else kvPointNext
+
 
     def _calc_in_out_slopes(self, _kvPointPrev, _kvPointCurrent, _kvPointNext):
         return 'Infinity', 'Infinity'
@@ -20,7 +22,7 @@ class CurveInstant(CurveBase):
 
 import unittest
 
-class TestInstant(unittest.TestCase):
+class TestCurveInstant(unittest.TestCase):
     testPoints = {1.1: 15.0, 3.4: 3.0}
     minPoint = 1.1
     maxPoint = 3.4
@@ -28,8 +30,8 @@ class TestInstant(unittest.TestCase):
     def setUp(self):
         self.curveInstant = CurveInstant()
 
-        for k in TestInstant.testPoints:
-            self.curveInstant.add_point(k, TestInstant.testPoints[k])
+        for k in TestCurveInstant.testPoints:
+            self.curveInstant.add_point(k, TestCurveInstant.testPoints[k])
 
 
     def tearDown(self):
@@ -37,25 +39,26 @@ class TestInstant(unittest.TestCase):
 
 
     def test_point_prev(self):
-        preVal = self.curveInstant.get_point_at(TestInstant.minPoint - 1.0)
-        self.assertAlmostEqual(preVal, TestInstant.testPoints[TestInstant.minPoint], 5)
+        preVal = self.curveInstant.get_point_at(TestCurveInstant.minPoint - 1.0)
+        self.assertAlmostEqual(preVal, TestCurveInstant.testPoints[TestCurveInstant.minPoint], 5)
 
 
     def test_point_post(self):
-        postVal = self.curveInstant.get_point_at(TestInstant.maxPoint + 1.0)
-        self.assertAlmostEqual(postVal, TestInstant.testPoints[TestInstant.maxPoint], 5)
+        postVal = self.curveInstant.get_point_at(TestCurveInstant.maxPoint + 1.0)
+        self.assertAlmostEqual(postVal, TestCurveInstant.testPoints[TestCurveInstant.maxPoint], 5)
 
 
     def test_point_middle(self):
-        midKey = (TestInstant.maxPoint + TestInstant.minPoint) / 2.0
+        midKey = (TestCurveInstant.maxPoint + TestCurveInstant.minPoint) / 2.0
         midVal = self.curveInstant.get_point_at(midKey)
-        self.assertAlmostEqual(midVal, TestInstant.testPoints[TestInstant.minPoint], 5)
+        self.assertAlmostEqual(midVal, TestCurveInstant.testPoints[TestCurveInstant.minPoint], 5)
 
 
     def test_basic_slopes(self):
         _val, inSlope, outSlope = self.curveInstant.get_point_with_in_out_slopes(5)
         self.assertEqual(inSlope, 'Infinity')
         self.assertEqual(outSlope, 'Infinity')
+
 
 
 if __name__ == '__main__':

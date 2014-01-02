@@ -1,6 +1,7 @@
 __author__ = 'Malhavok'
 
 import bisect
+import math
 
 
 class KVPoint(object):
@@ -8,17 +9,41 @@ class KVPoint(object):
         self.__key = key
         self.__value = value
 
+
     def get_key(self):
         return self.__key
+
 
     def get_value(self):
         return self.__value
 
+
     def set_key(self, newKey):
+        assert newKey is not None
         self.__key = newKey
 
+
     def set_value(self, newValue):
+        assert newValue is not None
         self.__value = newValue
+
+
+    def __eq__(self, other):
+        assert isinstance(other, self.__class__)
+
+        if math.fabs(self.__key - other.__key) > 1e-4:
+            return False
+        if math.fabs(self.__value - other.__value) > 1e-4:
+            return False
+        return True
+
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+
+    def __str__(self):
+        return 'KVPoint(key=' + str(self.__key) + '; value=' + str(self.__value) + ')'
 
 
 # optimized operation:
@@ -57,9 +82,6 @@ class CurveBase(object):
 
 
     def __get_kv_point_at(self, key):
-        if key in self.__pointMap:
-            return self.__pointMap[key]
-
         if not self.__sortedKeys:
             self.__sortedKeys = sorted(self.__pointMap.keys())
 
@@ -68,6 +90,9 @@ class CurveBase(object):
 
         prevKV = self.__pointMap[prevKey] if prevKey else None
         nextKV = self.__pointMap[nextKey] if nextKey else None
+
+        if key in self.__pointMap:
+            return self.__pointMap[key], prevKV, nextKV
 
         return self._interpolate(prevKV, nextKV, key), prevKV, nextKV
 
