@@ -34,6 +34,15 @@ class Transform(Component):
     def get_position(self):
         return self.position
 
+    def get_x_position(self):
+        return self.position[0]
+
+    def get_y_position(self):
+        return self.position[1]
+
+    def get_z_position(self):
+        return self.position[2]
+
     def set_z_rot(self, angleRad):
         self.angle = angleRad
         self.rotation = (0.0, 0.0, math.sin(angleRad / 2.0), math.cos(angleRad / 2.0))
