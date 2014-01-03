@@ -92,13 +92,22 @@ class CurveBase(object):
         prevKey = self.__get_previous_key(key)
         nextKey = self.__get_next_key(key)
 
-        prevKV = self.__pointMap[prevKey] if prevKey else None
-        nextKV = self.__pointMap[nextKey] if nextKey else None
+        prevKV = None
+        nextKV = None
+
+        if prevKey is not None:
+            prevKV = self.__pointMap[prevKey]
+
+        if nextKey is not None:
+            nextKV = self.__pointMap[nextKey]
 
         if key in self.__pointMap:
-            return self.__pointMap[key], prevKV, nextKV
+            keyKV = self.__pointMap[key]
+        else:
+            keyKV = self._interpolate(prevKV, nextKV, key)
 
-        return self._interpolate(prevKV, nextKV, key), prevKV, nextKV
+        assert keyKV is not None, str(self.__class__) + ': Failed to obtain value for ' + str(key) + ' with keymap of: ' + str(self.__sortedKeys)
+        return keyKV, prevKV, nextKV
 
 
     def __get_previous_key(self, key):

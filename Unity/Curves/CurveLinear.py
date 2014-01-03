@@ -11,6 +11,8 @@ class CurveLinear(CurveBase):
 
 
     def _interpolate(self, kvPointPrev, kvPointNext, desiredKey):
+        assert kvPointPrev is not None or kvPointNext is not None, "Can't interpolate without any points"
+
         if kvPointPrev is None:
             return kvPointNext
 
