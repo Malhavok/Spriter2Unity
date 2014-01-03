@@ -277,14 +277,6 @@ class AnimationClip(object):
                 cc.add_info(go.get_path(), t, 0)
 
 
-#        finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
-#        if self.isLooped:
-#            finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
-#
-#        for go in finalKey:
-#            transform = go.get_component_of_type(Transform.type)
-#            cc.add_info(go.get_path(), self.animTime, transform.get_position())
-
         # string to write it down, data for editor curves
         return cc.to_editor_string(GameObject.type, 'm_IsActive'), cc.to_editor_string(GameObject.type, 'm_IsActive')
 
@@ -371,26 +363,6 @@ class AnimationClip(object):
                     animMarker = '%s.%d' % (self.name, animId)
                     evt.set_str_function('S2UInternal_AssignSprite', animMarker)
                     eventList.append(evt.to_string())
-
-#                cc.add_info(go.get_path(), t, [sprite_renderer.get_sprite_guid()])
-
-        # not making "the final key" as it adds nothing, animation ends not calling it anyways
-#        finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
-#        if self.isLooped:
-#            finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
-#
-#        for go in finalKey:
-#            if not go.does_take_part_in_anim_calcs():
-#                continue
-#            sprite_renderer = go.get_component_of_type(SpriteRenderer.type)
-#            if sprite_renderer is None:
-#                continue
-#
-#            evt = AnimationEvent(self.animTime)
-#            animId = self.animationScript.get_idx_by_path_and_guid(go.get_path(), sprite_renderer.get_sprite_guid())
-#            assert(animId >= 0)
-#            evt.set_int_function('S2UInternal_AssignSprite', animId)
-#            eventList.append(evt.to_string())
 
         return '\n'.join(eventList)
 
