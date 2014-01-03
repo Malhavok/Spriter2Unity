@@ -237,31 +237,23 @@ class AnimationClip(object):
         if len(self.keyframes) == 0:
             return None
 
-        cc = CurveCalc()
+        tsrWork = TSRCurveWorker(
+            [('x', TSRCurveWorker.LINEAR), ('y', TSRCurveWorker.LINEAR), ('z', TSRCurveWorker.DUMMY_1)],
+            'm_LocalScale'
+        )
 
         for t in self.keyframes.keys():
             for go in self.keyframes[t]:
                 transform = go.get_component_of_type(Transform.type)
-                scale = transform.get_scale()
+
                 if not go.does_take_part_in_anim_calcs():
-#                    cc.add_info(go.get_path(), t, (None, None, scale[2]))
                     continue
-                cc.add_info(go.get_path(), t, scale)
 
-        finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
-        if self.isLooped:
-            finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
-
-        for go in finalKey:
-            transform = go.get_component_of_type(Transform.type)
-            scale = transform.get_scale()
-            if not go.does_take_part_in_anim_calcs():
-#                cc.add_info(go.get_path(), self.animTime, (None, None, scale[2]))
-                continue
-            cc.add_info(go.get_path(), self.animTime, scale)
+                tsrWork.add_key_frame(t, go.get_path(), 'x', transform.get_x_scale())
+                tsrWork.add_key_frame(t, go.get_path(), 'y', transform.get_y_scale())
 
         # string to write it down, data for editor curves
-        return cc.to_string(), cc.to_editor_string(Transform.type, 'm_LocalScale')
+        return tsrWork.to_string(), tsrWork.to_editor_string()
 
 
     def calc_active_curves(self):

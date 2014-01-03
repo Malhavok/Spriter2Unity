@@ -59,6 +59,15 @@ class Transform(Component):
     def get_scale(self):
         return self.scale
 
+    def get_x_scale(self):
+        return self.scale[0]
+
+    def get_y_scale(self):
+        return self.scale[1]
+
+    def get_z_scale(self):
+        return self.scale[2]
+
     def to_string(self):
         outList = []
 

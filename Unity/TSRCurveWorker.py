@@ -34,7 +34,6 @@ class TSRCurveHelper(object):
 
         for curve in self.__curves.values():
             timeListSet = set(curve.get_all_keys())
-            assert len(timeListSet) > 0, 'Timeline received from curve was empty'
             tmpSet = tmpSet.union(timeListSet)
 
         return dataSet.union(tmpSet)
