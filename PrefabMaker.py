@@ -123,9 +123,10 @@ class PrefabMaker(object):
             sr.set_alpha(node.get_alpha())
 
             if self.metaReader:
-                sr.set_sprite_guid(self.metaReader.get_guid(node.get_file().get_name()))
+                sr.set_sprite_guid(self.metaReader.get_guid(node.get_file()))
 
-            self.spriteAssigner.add_sprite(node.get_file().get_name(), go.get_path(), sr.get_sprite_guid())
+            if node.get_file():
+                self.spriteAssigner.add_sprite(node.get_file().get_name(), go.get_path(), sr.get_sprite_guid())
 
             go.add_component(sr)
 

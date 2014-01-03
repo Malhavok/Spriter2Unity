@@ -34,15 +34,15 @@ class Sprite(Node):
         return self.pivot_x, self.pivot_y
 
     def get_pivot_from_middle_pix_x(self):
-        if file is None:
-            return None
+        if self.file is None:
+            return 0.0
         midX = self.file.width / 2.0
         pivX = self.file.width * self.pivot_x
         return midX - pivX
 
     def get_pivot_from_middle_pix_y(self):
-        if file is None:
-            return None
+        if self.file is None:
+            return 0.0
         midY = self.file.height / 2.0
         pivY = self.file.height * self.pivot_y
         return midY - pivY

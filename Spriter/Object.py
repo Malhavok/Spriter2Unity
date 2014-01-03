@@ -24,8 +24,12 @@ class Object(KeyElem):
         self.parse(node)
 
     def parse(self, node):
-        self.folder = int(node.attrib['folder'])
-        self.file = int(node.attrib['file'])
+        if 'folder' in node.attrib:
+            self.folder = int(node.attrib['folder'])
+
+        if 'file' in node.attrib:
+            self.file = int(node.attrib['file'])
+
         self.x = float(node.attrib.get('x', 0.0))
         self.y = float(node.attrib.get('y', 0.0))
         self.alpha = float(node.attrib.get('a', 1.0))
@@ -40,6 +44,9 @@ class Object(KeyElem):
         self.angle = self.angle_deg * math.pi / 180.0
         self.scale_x = float(node.attrib.get('scale_x', 1.0))
         self.scale_y = float(node.attrib.get('scale_y', 1.0))
+
+        if self.folder is None or self.file is None:
+            print 'WARNING! found sprite with no file attached.'
 
     def __str__(self):
         return 'Object (folder: %d, file: %d, x: %f, y: %f, px: %s, py: %s, sx: %f, sy: %f, a: %f [deg: %f])'\

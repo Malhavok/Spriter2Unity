@@ -7,9 +7,11 @@ class MetaReader(object):
         self.guids = {}
         self.unityDir = unityDir
 
-    def get_guid(self, filename):
+    def get_guid(self, fileObj):
+        if fileObj is None:
+            return None
         #print ' Asking about', filename, '->', self.guids.get(filename, '(not existant)'), ' | ', str(len(self.guids))
-        return self.guids.get(filename, None)
+        return self.guids.get(fileObj.get_name(), None)
 
     def check_file(self, filename):
         fullPath = os.path.join(self.unityDir, filename)
