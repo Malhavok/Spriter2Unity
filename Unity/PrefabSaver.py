@@ -1,5 +1,6 @@
 __author__ = 'Malhavok'
 
+import codecs
 
 class PrefabSaver(object):
     def __init__(self):
@@ -55,8 +56,9 @@ class PrefabSaver(object):
     def save(self, filename):
         fullFilename = filename + '.prefab'
 
-        with open(fullFilename, 'w') as f:
-            f.write(self.to_string())
+        with codecs.open(fullFilename, 'w', encoding='utf-8') as f:
+            data = self.to_string()
+            f.write(data)
 
     def mangle(self):
         outMap = {}

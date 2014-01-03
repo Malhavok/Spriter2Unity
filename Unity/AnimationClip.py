@@ -11,6 +11,9 @@ from AnimationEvent import AnimationEvent
 
 from MB_AssignSprite import MB_AssignSprite
 
+import codecs
+
+
 class AnimationClip(object):
     def __init__(self, name, animTimeSec, baseGOList):
         self.name = name
@@ -39,7 +42,7 @@ class AnimationClip(object):
         outName = self.name + '.anim'
         outStr = self.to_string()
 
-        with open(outName, 'w') as f:
+        with codecs.open(outName, 'w', encoding='utf=8') as f:
             f.write(outStr)
 
 
@@ -380,10 +383,10 @@ class AnimationClip(object):
 
                 evt = AnimationEvent(t)
                 animId = self.animationScript.get_idx_by_path_and_guid(go.get_path(), sprite_renderer.get_sprite_guid())
-                assert(animId >= 0)
-                animMarker = '%s.%d' % (self.name, animId)
-                evt.set_str_function('S2UInternal_AssignSprite', animMarker)
-                eventList.append(evt.to_string())
+                if animId >= 0:
+                    animMarker = '%s.%d' % (self.name, animId)
+                    evt.set_str_function('S2UInternal_AssignSprite', animMarker)
+                    eventList.append(evt.to_string())
 
 #                cc.add_info(go.get_path(), t, [sprite_renderer.get_sprite_guid()])
 

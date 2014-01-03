@@ -46,7 +46,7 @@ class Object(KeyElem):
         self.scale_y = float(node.attrib.get('scale_y', 1.0))
 
         if self.folder is None or self.file is None:
-            print 'WARNING! found sprite with no file attached.'
+            print 'Warning - found sprite with no file attached.'
 
     def __str__(self):
         return 'Object (folder: %d, file: %d, x: %f, y: %f, px: %s, py: %s, sx: %f, sy: %f, a: %f [deg: %f])'\
