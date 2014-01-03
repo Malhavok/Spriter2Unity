@@ -15,8 +15,8 @@ class SaversBase(object):
 
 
     def set_timeline(self, newTimeline):
-        assert type(newTimeline) is list
-        assert len(newTimeline) > 0
+        assert type(newTimeline) is list, 'Passed timeline is not a list: ' + str(type(newTimeline))
+        assert len(newTimeline) > 0, 'Timeline have length less or equal 0: ' + str(len(newTimeline))
 
         self._timeline = newTimeline
 
