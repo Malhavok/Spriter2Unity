@@ -14,6 +14,7 @@ from AnimationEvent import AnimationEvent
 
 from MB_AssignSprite import MB_AssignSprite
 
+import CurveParam
 import CurveWorker
 import Curves
 import CurveSavers
@@ -183,9 +184,9 @@ class AnimationClip(object):
         if len(self.keyframes) == 0:
             return None
 
-        xCurveParam = CurveWorker.CurveParam('x', Curves.CurveLinear.CurveLinear, None)
-        yCurveParam = CurveWorker.CurveParam('y', Curves.CurveLinear.CurveLinear, None)
-        zCurveParam = CurveWorker.CurveParam('z', Curves.CurveInstant.CurveInstant, None)
+        xCurveParam = CurveParam.CurveParam('x', Curves.CurveLinear.CurveLinear)
+        yCurveParam = CurveParam.CurveParam('y', Curves.CurveLinear.CurveLinear)
+        zCurveParam = CurveParam.CurveParam('z', Curves.CurveInstant.CurveInstant)
 
         tsrWork = CurveWorker.CurveWorker(
             [xCurveParam, yCurveParam, zCurveParam],
@@ -215,10 +216,25 @@ class AnimationClip(object):
 
         # the effect of this is creation of 3-dimensional quaternion for rotation around Z-axis
         # it's form is (0, 0, sin(angle)/2, cos(angle)/2)
-        xCurveParam = CurveWorker.CurveParam('x', Curves.CurveDummy.CurveDummy, None, curveClassCtorParams = (0.0,))
-        yCurveParam = CurveWorker.CurveParam('y', Curves.CurveDummy.CurveDummy, None, curveClassCtorParams = (0.0,))
-        zCurveParam = CurveWorker.CurveParam('z', Curves.CurveLinearAngle.CurveLinearAngle, lambda x: math.sin(x / 2.0))
-        wCurveParam = CurveWorker.CurveParam('w', Curves.CurveLinearAngle.CurveLinearAngle, lambda x: math.cos(x / 2.0))
+        # sadly, to do it properly i have to supply derivatives of these functions as well
+        # so (after asking Wolfram Alpha):
+        # sin'(x/2) = cos(x/2) / 2
+        # cos'(x/2) = -sin(x/2) / 2
+        #
+        xCurveParam = CurveParam.CurveParam('x', Curves.CurveDummy.CurveDummy, curveClassCtorParams = (0.0,))
+        yCurveParam = CurveParam.CurveParam('y', Curves.CurveDummy.CurveDummy, curveClassCtorParams = (0.0,))
+
+        zCurveParam = CurveParam.CurveParam(
+            'z',
+            Curves.CurveLinearAngle.CurveLinearAngle,
+            curveClassCtorParams = (lambda x: math.sin(x / 2.0), )
+        )
+
+        wCurveParam = CurveParam.CurveParam(
+            'w',
+            Curves.CurveLinearAngle.CurveLinearAngle,
+            curveClassCtorParams = (lambda x: math.cos(x / 2.0), )
+        )
 
         tsrWork = CurveWorker.CurveWorker(
             [xCurveParam, yCurveParam, zCurveParam, wCurveParam],
@@ -248,9 +264,9 @@ class AnimationClip(object):
         if len(self.keyframes) == 0:
             return None
 
-        xCurveParam = CurveWorker.CurveParam('x', Curves.CurveLinear.CurveLinear, None)
-        yCurveParam = CurveWorker.CurveParam('y', Curves.CurveLinear.CurveLinear, None)
-        zCurveParam = CurveWorker.CurveParam('z', Curves.CurveDummy.CurveDummy, None, curveClassCtorParams = (1.0,))
+        xCurveParam = CurveParam.CurveParam('x', Curves.CurveLinear.CurveLinear)
+        yCurveParam = CurveParam.CurveParam('y', Curves.CurveLinear.CurveLinear)
+        zCurveParam = CurveParam.CurveParam('z', Curves.CurveDummy.CurveDummy, curveClassCtorParams = (1.0,))
 
         tsrWork = CurveWorker.CurveWorker(
             [xCurveParam, yCurveParam, zCurveParam],

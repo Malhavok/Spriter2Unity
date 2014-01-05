@@ -8,8 +8,8 @@ import math
 # angles passed to this instance have to be in radians
 #
 class CurveLinearAngle(CurveLinear):
-    def __init__(self):
-        super(CurveLinearAngle, self).__init__()
+    def __init__(self, valueModifierLambda = None):
+        super(CurveLinearAngle, self).__init__(valueModifierLambda)
 
 
     def add_point(self, key, value):
@@ -31,11 +31,13 @@ class CurveLinearAngle(CurveLinear):
         assert desiredKey > startKey
         assert desiredKey < endKey
 
+        # interpolation on original values
         percent = (desiredKey - startKey) / (endKey - startKey)
-        angleDiff = self.__calc_angle_diff(kvPointPrev.get_value(), kvPointNext.get_value())
-        value = self.__wrap_angle(kvPointPrev.get_value() + percent * angleDiff)
+        angleDiff = self.__calc_angle_diff(kvPointPrev.get_original_value(), kvPointNext.get_original_value())
+        value = self.__wrap_angle(kvPointPrev.get_original_value() + percent * angleDiff)
+        modValue = self._modify_kv_value(value)
 
-        return KVPoint(desiredKey, value)
+        return KVPoint(desiredKey, modValue, value)
 
 
     def __wrap_angle(self, angle):

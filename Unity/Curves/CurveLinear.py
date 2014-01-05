@@ -6,8 +6,8 @@ from CurveBase import CurveBase, KVPoint
 # linear interpolation
 #
 class CurveLinear(CurveBase):
-    def __init__(self):
-        super(CurveLinear, self).__init__()
+    def __init__(self, valueModifierLambda = None):
+        super(CurveLinear, self).__init__(valueModifierLambda)
 
 
     def _interpolate(self, kvPointPrev, kvPointNext, desiredKey):
@@ -26,10 +26,12 @@ class CurveLinear(CurveBase):
         assert desiredKey > startKey
         assert desiredKey < endKey
 
+        # interpolation on original values
         percent = (desiredKey - startKey) / (endKey - startKey)
-        value = kvPointPrev.get_value() * (1.0 - percent) + kvPointNext.get_value() * percent
+        value = kvPointPrev.get_original_value() * (1.0 - percent) + kvPointNext.get_original_value() * percent
+        modValue = self._modify_kv_value(value)
 
-        return KVPoint(desiredKey, value)
+        return KVPoint(desiredKey, modValue, value)
 
 
     def _calc_in_out_slopes(self, kvPointPrev, kvPointCurrent, kvPointNext):
@@ -46,6 +48,7 @@ class CurveLinear(CurveBase):
 
 
     def __calc_slope(self, point1, point2):
+        # calculations on actual values
         assert point1.get_key() < point2.get_key()
         return (point2.get_value() - point1.get_value()) / (point2.get_key() - point1.get_key())
 

@@ -5,9 +5,10 @@ import math
 
 
 class KVPoint(object):
-    def __init__(self, key = None, value = None):
+    def __init__(self, key, value, originalValue):
         self.__key = key
         self.__value = value
+        self.__originalValue = originalValue
 
 
     def get_key(self):
@@ -16,6 +17,10 @@ class KVPoint(object):
 
     def get_value(self):
         return self.__value
+
+
+    def get_original_value(self):
+        return self.__originalValue
 
 
     def set_key(self, newKey):
@@ -28,12 +33,19 @@ class KVPoint(object):
         self.__value = newValue
 
 
+    def set_original_value(self, newValue):
+        assert newValue is not None
+        self.__originalValue = newValue
+
+
     def __eq__(self, other):
         assert isinstance(other, self.__class__)
 
         if math.fabs(self.__key - other.__key) > 1e-4:
             return False
         if math.fabs(self.__value - other.__value) > 1e-4:
+            return False
+        if math.fabs(self.__originalValue - other.__originalValue) > 1e-4:
             return False
         return True
 
@@ -43,7 +55,10 @@ class KVPoint(object):
 
 
     def __str__(self):
-        return 'KVPoint(key=' + str(self.__key) + '; value=' + str(self.__value) + ')'
+        return 'KVPoint(key=' + str(self.__key)\
+               + '; value=' + str(self.__value)\
+               + '; originalValue=' + str(self.__originalValue)\
+               + ')'
 
 
 # optimized operation:
@@ -51,8 +66,12 @@ class KVPoint(object):
 # then - getting all values
 #
 class CurveBase(object):
-    def __init__(self):
+    def __init__(self, valueModifierLambda = None):
         super(CurveBase, self).__init__()
+
+        self.__lambdaModifier = valueModifierLambda
+        if self.__lambdaModifier is None:
+            self.__lambdaModifier = lambda x: x
 
         self.__sortedKeys = None
         self.__pointMap = {}
@@ -61,7 +80,8 @@ class CurveBase(object):
     def add_point(self, key, value):
         assert key is not None
 
-        self.__pointMap[key] = KVPoint(key, value)
+        modValue = self._modify_kv_value(value)
+        self.__pointMap[key] = KVPoint(key, modValue, value)
         self.__invalidate_sorted_keys()
 
 
@@ -84,6 +104,11 @@ class CurveBase(object):
     def get_all_keys(self):
         self.__generate_sorted_keys()
         return self.__sortedKeys
+
+
+    def _modify_kv_value(self, value):
+        # this is using defined function to modify value
+        return self.__lambdaModifier(value)
 
 
     def __get_kv_point_at(self, key):

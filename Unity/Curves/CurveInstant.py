@@ -5,8 +5,8 @@ from CurveBase import CurveBase
 # this shows instant change
 #
 class CurveInstant(CurveBase):
-    def __init__(self):
-        super(CurveInstant, self).__init__()
+    def __init__(self, valueModifierLambda = None):
+        super(CurveInstant, self).__init__(valueModifierLambda)
 
 
     def _interpolate(self, kvPointPrev, kvPointNext, _desiredKey):

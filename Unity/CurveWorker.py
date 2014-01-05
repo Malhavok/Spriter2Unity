@@ -19,43 +19,9 @@ def kahan_range(start, stop, step):
 
 
 
-class CurveParam(object):
-    def __init__(self, paramName, curveClass, valueModLambda = None, curveClassCtorParams = None):
-        super(CurveParam, self).__init__()
-
-        self.__paramName = paramName
-        self.__curveClass = curveClass
-        self.__curveClassCtorParams = curveClassCtorParams
-        self.__valueModLambda = valueModLambda
-
-
-    def get_param_name(self):
-        return self.__paramName
-
-
-    def create_curve_instance(self):
-        if not self.__curveClassCtorParams:
-            return self.__curveClass()
-        else:
-            return self.__curveClass(*self.__curveClassCtorParams)
-
-
-    def modify_value(self, oldValue):
-        assert oldValue is not None
-
-        if not self.__valueModLambda:
-            retValue = oldValue
-        else:
-            retValue = self.__valueModLambda(oldValue)
-
-        assert retValue is not None, 'Unable to modify value via lambda, maybe function doesnt return a value?'
-        return retValue
-
-
-
-class CurveHelper(object):
+class _CurveWorkerHelper(object):
     def __init__(self, setCurveParamList, saverClass, savedObjectType, variableBaseName, path):
-        super(CurveHelper, self).__init__()
+        super(_CurveWorkerHelper, self).__init__()
 
         setNameOrder = [curveParam.get_param_name() for curveParam in setCurveParamList]
 
@@ -63,9 +29,7 @@ class CurveHelper(object):
         self.__saverFilled = False
 
         self.__curves = {}
-        self.__curveParams = {}
-
-        self.__create_curve_and_curveParams_objects(setCurveParamList)
+        self.__create_curve_objects(setCurveParamList)
 
 
     def add_key_frame(self, time, keyName, value):
@@ -103,25 +67,22 @@ class CurveHelper(object):
         for keyName in self.__curves.keys():
             valueList = []
             curve = self.__curves[keyName]
-            curveParam = self.__curveParams[keyName]
 
             for timeKey in timeLine:
                 timeValue, inSlope, outSlope = curve.get_point_with_in_out_slopes(timeKey)
-                modValue = curveParam.modify_value(timeValue)
-                valueList.append((modValue, inSlope, outSlope))
+                valueList.append((timeValue, inSlope, outSlope))
 
             self.__saver.add_dataset(keyName, valueList)
 
         self.__saverFilled = True
 
 
-    def __create_curve_and_curveParams_objects(self, setCurveParamList):
+    def __create_curve_objects(self, setCurveParamList):
         for curveParam in setCurveParamList:
             newObj = curveParam.create_curve_instance()
             assert newObj is not None
 
             self.__curves[curveParam.get_param_name()] = newObj
-            self.__curveParams[curveParam.get_param_name()] = curveParam
 
 
 
@@ -205,7 +166,7 @@ class CurveWorker(object):
 
     def __get_helper_at(self, path):
         if path not in self.__data:
-            newHelper = CurveHelper(
+            newHelper = _CurveWorkerHelper(
                 self.__setCurveParamList,
                 self.__curveSaverClass,
                 self.__savedObjectType,

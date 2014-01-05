@@ -6,14 +6,15 @@ from CurveBase import CurveBase, KVPoint
 # always returns the same, dummy, value
 #
 class CurveDummy(CurveBase):
-    def __init__(self, dummyValue):
-        super(CurveDummy, self).__init__()
+    def __init__(self, dummyValue, valueModifierLambda = None):
+        super(CurveDummy, self).__init__(valueModifierLambda)
 
         self.dummyValue = dummyValue
 
 
     def _interpolate(self, _kvPointPrev, _kvPointNext, desiredKey):
-        return KVPoint(desiredKey, self.dummyValue)
+        modValue = self._modify_kv_value(self.dummyValue)
+        return KVPoint(desiredKey, modValue, self.dummyValue)
 
 
     def _calc_in_out_slopes(self, _kvPointPrev, _kvPointCurrent, _kvPointNext):
