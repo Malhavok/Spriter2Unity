@@ -217,8 +217,8 @@ class AnimationClip(object):
         # it's form is (0, 0, sin(angle)/2, cos(angle)/2)
         xCurveParam = CurveWorker.CurveParam('x', Curves.CurveDummy.CurveDummy, None, curveClassCtorParams = (0.0,))
         yCurveParam = CurveWorker.CurveParam('y', Curves.CurveDummy.CurveDummy, None, curveClassCtorParams = (0.0,))
-        zCurveParam = CurveWorker.CurveParam('z', Curves.CurveLinear.CurveLinear, lambda x: math.sin(x) / 2.0)
-        wCurveParam = CurveWorker.CurveParam('w', Curves.CurveLinear.CurveLinear, lambda x: math.cos(x) / 2.0)
+        zCurveParam = CurveWorker.CurveParam('z', Curves.CurveLinearAngle.CurveLinearAngle, lambda x: math.sin(x) / 2.0)
+        wCurveParam = CurveWorker.CurveParam('w', Curves.CurveLinearAngle.CurveLinearAngle, lambda x: math.cos(x) / 2.0)
 
         tsrWork = CurveWorker.CurveWorker(
             [xCurveParam, yCurveParam, zCurveParam, wCurveParam],
@@ -228,20 +228,12 @@ class AnimationClip(object):
             continuousTimeLine=True
         )
 
-#        for t in self.keyframes.keys():
-#            for go in self.keyframes[t]:
-#                transform = go.get_component_of_type(Transform.type)
-#                rot = transform.get_z_angle()
-#                if not go.does_take_part_in_anim_calcs():
-#                    cc.add_angle_info(go.get_path(), t, None)
-#                    continue
-#                cc.add_angle_info(go.get_path(), t, rot)
-
         for t in self.keyframes.keys():
             for go in self.keyframes[t]:
                 transform = go.get_component_of_type(Transform.type)
 
                 if not go.does_take_part_in_anim_calcs():
+                    # tsrWork.add_time_frame(t)
                     continue
 
                 tsrWork.add_key_frame(t, go.get_path(), 'z', transform.get_z_angle())
