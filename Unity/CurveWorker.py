@@ -1,6 +1,24 @@
 __author__ = 'Malhavok'
 
 
+def kahan_range(start, stop, step):
+    # yields from start (including) to stop (excluding)
+
+    # taken from:
+    # http://stackoverflow.com/questions/4189766/python-range-with-step-of-type-float
+    # remember kids: kahan sumation is good, google it and use it wisely
+    assert step > 0.0
+    total = start
+    compo = 0.0
+    while total < stop:
+        yield total
+        y = step - compo
+        temp = total + y
+        compo = (temp - total) - y
+        total = temp
+
+
+
 class CurveParam(object):
     def __init__(self, paramName, curveClass, valueModLambda = None, curveClassCtorParams = None):
         super(CurveParam, self).__init__()
@@ -108,7 +126,9 @@ class CurveHelper(object):
 
 
 class CurveWorker(object):
-    def __init__(self, setCurveParamList, curveSaverClass, savedObjectType, variableBaseName):
+    FPS = 60.0
+
+    def __init__(self, setCurveParamList, curveSaverClass, savedObjectType, variableBaseName, continuousTimeLine = False):
         super(CurveWorker, self).__init__()
 
         self.__setCurveParamList = setCurveParamList
@@ -120,6 +140,7 @@ class CurveWorker(object):
         self.__data = {}
 
         self.__timeKeys = None
+        self.__continuousTimeLine = continuousTimeLine
 
 
     def add_key_frame(self, time, path, key, value):
@@ -161,7 +182,25 @@ class CurveWorker(object):
 
         self.__timeKeys = sorted(list(tmpSet))
 
+        if self.__continuousTimeLine:
+            self.__make_timeline_continuous()
+
         assert len(self.__timeKeys) > 0, 'Failed to fill temporary set with values'
+
+
+    def __make_timeline_continuous(self):
+        # this here assumes that a timeKeys are generated and just waiting
+        # to be modified
+        step = 1.0 / CurveWorker.FPS
+        start = self.__timeKeys[0]
+        end = self.__timeKeys[-1]
+
+        newList = []
+        for elem in kahan_range(start, end, step):
+            newList.append(elem)
+        newList.append(end)
+
+        self.__timeKeys = newList
 
 
     def __get_helper_at(self, path):
