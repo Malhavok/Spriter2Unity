@@ -47,11 +47,12 @@ class CurveHelper(object):
         self.__curves = {}
         self.__curveParams = {}
 
-        self.__create_curve_objects(setCurveParamList)
+        self.__create_curve_and_curveParams_objects(setCurveParamList)
 
 
     def add_key_frame(self, time, keyName, value):
-        keyCurve = self.__get_key_curve(keyName)
+        assert keyName in self.__curves
+        keyCurve = self.__curves[keyName]
         keyCurve.add_point(time, value)
 
 
@@ -83,7 +84,7 @@ class CurveHelper(object):
 
         for keyName in self.__curves.keys():
             valueList = []
-            curve = self.__get_key_curve(keyName)
+            curve = self.__curves[keyName]
             curveParam = self.__curveParams[keyName]
 
             for timeKey in timeLine:
@@ -96,12 +97,7 @@ class CurveHelper(object):
         self.__saverFilled = True
 
 
-    def __get_key_curve(self, keyName):
-        assert keyName in self.__curves
-        return self.__curves[keyName]
-
-
-    def __create_curve_objects(self, setCurveParamList):
+    def __create_curve_and_curveParams_objects(self, setCurveParamList):
         for curveParam in setCurveParamList:
             newObj = curveParam.create_curve_instance()
             assert newObj is not None
