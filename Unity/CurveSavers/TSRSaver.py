@@ -27,7 +27,12 @@ class TSRSaver(SaversBase):
 
         outList.append('    m_PreInfinity: 2')
         outList.append('    m_PostInfinity: 2')
-        outList.append('  path: ' + str(self._path))
+
+        pathStr = '  path:'
+        if self._path is not None:
+            pathStr = pathStr + ' ' + self._path
+
+        outList.append(pathStr)
 
         return '\n'.join(outList)
 
@@ -53,7 +58,13 @@ class TSRSaver(SaversBase):
             outList.append('    m_PreInfinity: 2')
             outList.append('    m_PostInfinity: 2')
             outList.append('  attribute: ' + self._saverVariableName + '.' + marker)
-            outList.append('  path: ' + str(self._path))
+
+            pathStr = '  path:'
+            if self._path is not None:
+                pathStr = pathStr + ' ' + self._path
+
+            outList.append(pathStr)
+
             outList.append('  classID: ' + str(self._typeId))
             outList.append('  script: {fileID: 0}')
 

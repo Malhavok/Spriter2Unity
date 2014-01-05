@@ -12,7 +12,9 @@ from AnimationEvent import AnimationEvent
 from MB_AssignSprite import MB_AssignSprite
 
 
-from TSRCurveWorker import TSRCurveWorker
+import CurveWorker
+import Curves
+import CurveSavers
 
 
 import codecs
@@ -182,8 +184,14 @@ class AnimationClip(object):
         if len(self.keyframes) == 0:
             return None
 
-        tsrWork = TSRCurveWorker(
-            [('x', TSRCurveWorker.LINEAR), ('y', TSRCurveWorker.LINEAR), ('z', TSRCurveWorker.INSTANT)],
+        xCurveParam = CurveWorker.CurveParam('x', Curves.CurveLinear.CurveLinear, None)
+        yCurveParam = CurveWorker.CurveParam('y', Curves.CurveLinear.CurveLinear, None)
+        zCurveParam = CurveWorker.CurveParam('z', Curves.CurveInstant.CurveInstant, None)
+
+        tsrWork = CurveWorker.CurveWorker(
+            [xCurveParam, yCurveParam, zCurveParam],
+            CurveSavers.TSRSaver.TSRSaver,
+            Transform.type,
             'm_LocalPosition'
         )
 
@@ -200,6 +208,7 @@ class AnimationClip(object):
 
         # string to write it down, data for editor curves
         return tsrWork.to_string(), tsrWork.to_editor_string()
+
 
     def calc_rotation_curves(self):
         if len(self.keyframes) == 0:
@@ -233,12 +242,19 @@ class AnimationClip(object):
         # note that euler curves are missing, but Unity ain't very picky about it
         return cc.to_string(), cc.to_editor_string(Transform.type, 'm_LocalRotation')
 
+
     def calc_scale_curves(self):
         if len(self.keyframes) == 0:
             return None
 
-        tsrWork = TSRCurveWorker(
-            [('x', TSRCurveWorker.LINEAR), ('y', TSRCurveWorker.LINEAR), ('z', TSRCurveWorker.DUMMY_1)],
+        xCurveParam = CurveWorker.CurveParam('x', Curves.CurveLinear.CurveLinear, None)
+        yCurveParam = CurveWorker.CurveParam('y', Curves.CurveLinear.CurveLinear, None)
+        zCurveParam = CurveWorker.CurveParam('z', Curves.CurveDummy.CurveDummy, None, curveClassCtorParams = (1.0,))
+
+        tsrWork = CurveWorker.CurveWorker(
+            [xCurveParam, yCurveParam, zCurveParam],
+            CurveSavers.TSRSaver.TSRSaver,
+            Transform.type,
             'm_LocalScale'
         )
 

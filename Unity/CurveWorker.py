@@ -1,27 +1,53 @@
 __author__ = 'Malhavok'
 
-import Curves
-import CurveSavers
 
-from Transform import Transform
+class CurveParam(object):
+    def __init__(self, paramName, curveClass, valueModLambda = None, curveClassCtorParams = None):
+        super(CurveParam, self).__init__()
 
-
-class TSRCurveHelper(object):
-    LINEAR = 0
-    INSTANT = 1
-    DUMMY_0 = 2
-    DUMMY_1 = 3
+        self.__paramName = paramName
+        self.__curveClass = curveClass
+        self.__curveClassCtorParams = curveClassCtorParams
+        self.__valueModLambda = valueModLambda
 
 
-    def __init__(self, setNameOrderType, variableBaseName, path):
-        super(TSRCurveHelper, self).__init__()
+    def get_param_name(self):
+        return self.__paramName
 
-        setNameOrder = [keyName for keyName, _keyType in setNameOrderType]
 
-        self.__saver = CurveSavers.TSRSaver.TSRSaver(setNameOrder, Transform.type, path, variableBaseName)
+    def create_curve_instance(self):
+        if not self.__curveClassCtorParams:
+            return self.__curveClass()
+        else:
+            return self.__curveClass(*self.__curveClassCtorParams)
+
+
+    def modify_value(self, oldValue):
+        assert oldValue is not None
+
+        if not self.__valueModLambda:
+            retValue = oldValue
+        else:
+            retValue = self.__valueModLambda(oldValue)
+
+        assert retValue is not None, 'Unable to modify value via lambda, maybe function doesnt return a value?'
+        return retValue
+
+
+
+class CurveHelper(object):
+    def __init__(self, setCurveParamList, saverClass, savedObjectType, variableBaseName, path):
+        super(CurveHelper, self).__init__()
+
+        setNameOrder = [curveParam.get_param_name() for curveParam in setCurveParamList]
+
+        self.__saver = saverClass(setNameOrder, savedObjectType, path, variableBaseName)
         self.__saverFilled = False
 
-        self.__curves = self.__create_curve_objects(setNameOrderType)
+        self.__curves = {}
+        self.__curveParams = {}
+
+        self.__create_curve_objects(setCurveParamList)
 
 
     def add_key_frame(self, time, keyName, value):
@@ -55,13 +81,15 @@ class TSRCurveHelper(object):
 
         self.__saver.set_timeline(timeLine)
 
-        for keyName in self.__curves:
+        for keyName in self.__curves.keys():
             valueList = []
             curve = self.__get_key_curve(keyName)
+            curveParam = self.__curveParams[keyName]
 
             for timeKey in timeLine:
-                timeValues = curve.get_point_with_in_out_slopes(timeKey)
-                valueList.append(timeValues)
+                timeValue, inSlope, outSlope = curve.get_point_with_in_out_slopes(timeKey)
+                modValue = curveParam.modify_value(timeValue)
+                valueList.append((modValue, inSlope, outSlope))
 
             self.__saver.add_dataset(keyName, valueList)
 
@@ -73,43 +101,25 @@ class TSRCurveHelper(object):
         return self.__curves[keyName]
 
 
-    def __create_curve_objects(self, setNameOrderType):
-        outDict = {}
-
-        for keyName, keyType in setNameOrderType:
-            newObj = None
-
-            if keyType == TSRCurveHelper.LINEAR:
-                newObj = Curves.CurveLinear.CurveLinear()
-            elif keyType == TSRCurveHelper.INSTANT:
-                newObj = Curves.CurveInstant.CurveInstant()
-            elif keyType == TSRCurveHelper.DUMMY_0:
-                newObj = Curves.CurveDummy.CurveDummy(0.0)
-            elif keyType == TSRCurveHelper.DUMMY_1:
-                newObj = Curves.CurveDummy.CurveDummy(1.0)
-
+    def __create_curve_objects(self, setCurveParamList):
+        for curveParam in setCurveParamList:
+            newObj = curveParam.create_curve_instance()
             assert newObj is not None
 
-            outDict[keyName] = newObj
-
-        return outDict
-
+            self.__curves[curveParam.get_param_name()] = newObj
+            self.__curveParams[curveParam.get_param_name()] = curveParam
 
 
-class TSRCurveWorker(object):
-    LINEAR = 'linear'
-    INSTANT = 'instant'
-    DUMMY_0 = 'dummy_0'
-    DUMMY_1 = 'dummy_1'
 
+class CurveWorker(object):
+    def __init__(self, setCurveParamList, curveSaverClass, savedObjectType, variableBaseName):
+        super(CurveWorker, self).__init__()
 
-    def __init__(self, setNameOrderType, variableBaseName):
-        super(TSRCurveWorker, self).__init__()
-
-        self.__setNameOrderType = setNameOrderType
+        self.__setCurveParamList = setCurveParamList
         self.__variableBaseName = variableBaseName
 
-        self.__workerNameOrderType = self.__create_worker_name_order_type()
+        self.__curveSaverClass = curveSaverClass
+        self.__savedObjectType = savedObjectType
 
         self.__data = {}
 
@@ -160,29 +170,13 @@ class TSRCurveWorker(object):
 
     def __get_helper_at(self, path):
         if path not in self.__data:
-            newHelper = TSRCurveHelper(self.__workerNameOrderType, self.__variableBaseName, path)
+            newHelper = CurveHelper(
+                self.__setCurveParamList,
+                self.__curveSaverClass,
+                self.__savedObjectType,
+                self.__variableBaseName,
+                path
+            )
             self.__data[path] = newHelper
 
         return self.__data[path]
-
-
-    def __create_worker_name_order_type(self):
-        outList = []
-
-        for keyName, keyType in self.__setNameOrderType:
-            newType = None
-
-            if keyType == TSRCurveWorker.LINEAR:
-                newType = TSRCurveHelper.LINEAR
-            elif keyType == TSRCurveWorker.INSTANT:
-                newType = TSRCurveHelper.INSTANT
-            elif keyType == TSRCurveWorker.DUMMY_0:
-                newType = TSRCurveHelper.DUMMY_0
-            elif keyType == TSRCurveWorker.DUMMY_1:
-                newType = TSRCurveHelper.DUMMY_1
-
-            assert newType is not None, 'Failed to map curve worker type to curve helper type for: "' + str(keyType) + '"'
-
-            outList.append((keyName, newType))
-
-        return outList
