@@ -309,7 +309,14 @@ class AnimationClip(object):
         if len(self.keyframes) == 0:
             return None
 
-        cc = CurveCalc(['a'])
+        curveParam = CurveParam.CurveParam('a', Curves.CurveLinear.CurveLinear)
+
+        tsrWork = CurveWorker.CurveWorker(
+            [curveParam],
+            CurveSavers.FloatSaver.FloatSaver,
+            SpriteRenderer.type,
+            'm_Color'
+        )
 
         for t in self.keyframes.keys():
             for go in self.keyframes[t]:
@@ -318,9 +325,10 @@ class AnimationClip(object):
                 sprite_renderer = go.get_component_of_type(SpriteRenderer.type)
                 if sprite_renderer is None:
                     continue
-                cc.add_info(go.get_path(), t, [sprite_renderer.get_alpha()])
 
-        return cc.to_editor_string(SpriteRenderer.type, 'm_Color'), cc.to_editor_string(SpriteRenderer.type, 'm_Color')
+                tsrWork.add_key_frame(t, go.get_path(), 'a', sprite_renderer.get_alpha())
+
+        return tsrWork.to_string(), tsrWork.to_editor_string()
 
 
     def calc_animation_events(self):
