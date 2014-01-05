@@ -8,7 +8,8 @@ This is an early version and is probably NOT working well, but it'll be fixed ov
 NOTICE
 ======
 
-A major change was made.
+Another major change. Whole system for calculating curves for Unity was redesigned. It may still be a bit buggy,
+whenever you notice anything big - let me know, i'll try to fix it ASAP.
 
 Each time using Spriter2Unity copy content of UnityAssets directory into your own project Asset directory.
 This means, that after operation you should have [unity project]/Assets/Spriter2Unity/ directory with some
