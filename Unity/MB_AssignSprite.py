@@ -42,7 +42,10 @@ class MB_AssignSprite(MonoBehaviour):
 
             outList.append('  - spriteName: %s' % (self.spriteName,))
             outList.append('    nodeName: %s' % (self.pathName,))
-            outList.append('    sprite: {fileID: 21300000, guid: %s, type: 3}' % (self.spriteGUID,))
+            if self.spriteGUID is None:
+                outList.append('    sprite: {fileID: 0}')
+            else:
+                outList.append('    sprite: {fileID: 21300000, guid: %s, type: 3}' % (self.spriteGUID,))
             outList.append('    rend: {fileID: %d%05d}' % (SpriteRenderer.type, self.rendererID))
 
             return '\n'.join(outList)
