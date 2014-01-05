@@ -105,6 +105,9 @@ class CurveWorker(object):
 
 
     def add_key_frame(self, time, path, key, value):
+        if path is None:
+            return
+
         helper = self.__get_helper_at(path)
         helper.add_key_frame(time, key, value)
 
