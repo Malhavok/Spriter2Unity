@@ -216,11 +216,6 @@ class AnimationClip(object):
 
         # the effect of this is creation of 3-dimensional quaternion for rotation around Z-axis
         # it's form is (0, 0, sin(angle)/2, cos(angle)/2)
-        # sadly, to do it properly i have to supply derivatives of these functions as well
-        # so (after asking Wolfram Alpha):
-        # sin'(x/2) = cos(x/2) / 2
-        # cos'(x/2) = -sin(x/2) / 2
-        #
         xCurveParam = CurveParam.CurveParam('x', Curves.CurveDummy.CurveDummy, curveClassCtorParams = (0.0,))
         yCurveParam = CurveParam.CurveParam('y', Curves.CurveDummy.CurveDummy, curveClassCtorParams = (0.0,))
 
