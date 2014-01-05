@@ -217,8 +217,8 @@ class AnimationClip(object):
         # it's form is (0, 0, sin(angle)/2, cos(angle)/2)
         xCurveParam = CurveWorker.CurveParam('x', Curves.CurveDummy.CurveDummy, None, curveClassCtorParams = (0.0,))
         yCurveParam = CurveWorker.CurveParam('y', Curves.CurveDummy.CurveDummy, None, curveClassCtorParams = (0.0,))
-        zCurveParam = CurveWorker.CurveParam('z', Curves.CurveLinearAngle.CurveLinearAngle, lambda x: math.sin(x) / 2.0)
-        wCurveParam = CurveWorker.CurveParam('w', Curves.CurveLinearAngle.CurveLinearAngle, lambda x: math.cos(x) / 2.0)
+        zCurveParam = CurveWorker.CurveParam('z', Curves.CurveLinearAngle.CurveLinearAngle, lambda x: math.sin(x / 2.0))
+        wCurveParam = CurveWorker.CurveParam('w', Curves.CurveLinearAngle.CurveLinearAngle, lambda x: math.cos(x / 2.0))
 
         tsrWork = CurveWorker.CurveWorker(
             [xCurveParam, yCurveParam, zCurveParam, wCurveParam],
