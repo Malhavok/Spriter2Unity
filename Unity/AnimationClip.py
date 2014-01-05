@@ -278,7 +278,7 @@ class AnimationClip(object):
         if len(self.keyframes) == 0:
             return None
 
-        curveParam = CurveParam.CurveParam(None, Curves.CurveLinear.CurveLinear)
+        curveParam = CurveParam.CurveParam(None, Curves.CurveInstant.CurveInstant)
 
         tsrWork = CurveWorker.CurveWorker(
             [curveParam],
