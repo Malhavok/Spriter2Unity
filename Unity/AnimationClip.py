@@ -68,11 +68,10 @@ class AnimationClip(object):
         rotationCurves, editorRotData = self.calc_rotation_curves()
         positionCurves, editorPosData = self.calc_position_curves()
         scaleCurves, editorScaleData = self.calc_scale_curves()
+
         floatingCurves, editorFloatCurves = self.calc_active_curves()
         floatAlpha, editorFloatAlpha = self.calc_alpha_curves()
 
-        # disable normal events
-        pptrCurves = None # self.calc_pptr_curves()
         eventCurves = self.calc_animation_events()
 
         outList.append('%YAML 1.1')
@@ -123,12 +122,7 @@ class AnimationClip(object):
             if floatAlpha is not None:
                 outList.append(self.tabber(2, floatAlpha, ' '))
 
-        if pptrCurves is None:
-            outList.append('  m_PPtrCurves: []')
-        else:
-            outList.append('  m_PPtrCurves:')
-            outList.append(self.tabber(2, pptrCurves, ' '))
-
+        outList.append('  m_PPtrCurves: []')
         outList.append('  m_SampleRate: 60')
         outList.append('  m_WrapMode: 0')
         outList.append('  m_Bounds:')
@@ -206,7 +200,6 @@ class AnimationClip(object):
                 tsrWork.add_key_frame(t, go.get_path(), 'x', transform.get_x_position())
                 tsrWork.add_key_frame(t, go.get_path(), 'y', transform.get_y_position())
 
-        # string to write it down, data for editor curves
         return tsrWork.to_string(), tsrWork.to_editor_string()
 
 
@@ -250,8 +243,6 @@ class AnimationClip(object):
                 tsrWork.add_key_frame(t, go.get_path(), 'z', transform.get_z_angle())
                 tsrWork.add_key_frame(t, go.get_path(), 'w', transform.get_z_angle())
 
-        # string to write it down, data for editor curves
-        # note that euler curves are missing, but Unity ain't very picky about it
         return tsrWork.to_string(), tsrWork.to_editor_string()
 
 
@@ -280,7 +271,6 @@ class AnimationClip(object):
                 tsrWork.add_key_frame(t, go.get_path(), 'x', transform.get_x_scale())
                 tsrWork.add_key_frame(t, go.get_path(), 'y', transform.get_y_scale())
 
-        # string to write it down, data for editor curves
         return tsrWork.to_string(), tsrWork.to_editor_string()
 
 
@@ -288,7 +278,14 @@ class AnimationClip(object):
         if len(self.keyframes) == 0:
             return None
 
-        cc = CurveCalcInstant()
+        curveParam = CurveParam.CurveParam(None, Curves.CurveLinear.CurveLinear)
+
+        tsrWork = CurveWorker.CurveWorker(
+            [curveParam],
+            CurveSavers.FloatSaver.FloatSaver,
+            GameObject.type,
+            'm_IsActive'
+        )
 
         for t in self.keyframes.keys():
             keyFramePaths = set()
@@ -296,17 +293,16 @@ class AnimationClip(object):
             for go in self.keyframes[t]:
                 go.set_active(True)
                 keyFramePaths.add(go.get_path())
-                cc.add_info(go.get_path(), t, go.is_active_as_int())
+                tsrWork.add_key_frame(t, go.get_path(), None, go.is_active_as_int())
 
             # add all other objects in this gameobject, as disabled
             for go in self.baseGOList:
                 if go.get_path() in keyFramePaths:
                     continue
-                cc.add_info(go.get_path(), t, 0)
 
+                tsrWork.add_key_frame(t, go.get_path(), None, 0)
 
-        # string to write it down, data for editor curves
-        return cc.to_editor_string(GameObject.type, 'm_IsActive'), cc.to_editor_string(GameObject.type, 'm_IsActive')
+        return tsrWork.to_string(), tsrWork.to_editor_string()
 
 
     def calc_alpha_curves(self):
@@ -324,7 +320,6 @@ class AnimationClip(object):
                     continue
                 cc.add_info(go.get_path(), t, [sprite_renderer.get_alpha()])
 
-        # string to write it down, data for editor curves
         return cc.to_editor_string(SpriteRenderer.type, 'm_Color'), cc.to_editor_string(SpriteRenderer.type, 'm_Color')
 
 
