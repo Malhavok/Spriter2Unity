@@ -1,5 +1,8 @@
 __author__ = 'Malhavok'
 
+import math
+import codecs
+
 from CurveCalc import CurveCalc
 from CurveCalcRot import CurveCalcRot
 from CurveCalcInstant import CurveCalcInstant
@@ -11,13 +14,9 @@ from AnimationEvent import AnimationEvent
 
 from MB_AssignSprite import MB_AssignSprite
 
-
 import CurveWorker
 import Curves
 import CurveSavers
-
-
-import codecs
 
 
 class AnimationClip(object):
@@ -214,33 +213,43 @@ class AnimationClip(object):
         if len(self.keyframes) == 0:
             return None
 
-        cc = CurveCalcRot()
+        # the effect of this is creation of 3-dimensional quaternion for rotation around Z-axis
+        # it's form is (0, 0, sin(angle)/2, cos(angle)/2)
+        xCurveParam = CurveWorker.CurveParam('x', Curves.CurveDummy.CurveDummy, None, curveClassCtorParams = (0.0,))
+        yCurveParam = CurveWorker.CurveParam('y', Curves.CurveDummy.CurveDummy, None, curveClassCtorParams = (0.0,))
+        zCurveParam = CurveWorker.CurveParam('z', Curves.CurveLinear.CurveLinear, lambda x: math.sin(x) / 2.0)
+        wCurveParam = CurveWorker.CurveParam('w', Curves.CurveLinear.CurveLinear, lambda x: math.cos(x) / 2.0)
+
+        tsrWork = CurveWorker.CurveWorker(
+            [xCurveParam, yCurveParam, zCurveParam, wCurveParam],
+            CurveSavers.TSRSaver.TSRSaver,
+            Transform.type,
+            'm_LocalRotation',
+            continuousTimeLine=True
+        )
+
+#        for t in self.keyframes.keys():
+#            for go in self.keyframes[t]:
+#                transform = go.get_component_of_type(Transform.type)
+#                rot = transform.get_z_angle()
+#                if not go.does_take_part_in_anim_calcs():
+#                    cc.add_angle_info(go.get_path(), t, None)
+#                    continue
+#                cc.add_angle_info(go.get_path(), t, rot)
 
         for t in self.keyframes.keys():
             for go in self.keyframes[t]:
                 transform = go.get_component_of_type(Transform.type)
-                rot = transform.get_z_angle()
+
                 if not go.does_take_part_in_anim_calcs():
-                    cc.add_angle_info(go.get_path(), t, None)
                     continue
-                cc.add_angle_info(go.get_path(), t, rot)
 
-        # missing key at the end of animation
-        finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
-        if self.isLooped:
-            finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
-
-        for go in finalKey:
-            transform = go.get_component_of_type(Transform.type)
-            rot = transform.get_z_angle()
-            if not go.does_take_part_in_anim_calcs():
-                cc.add_angle_info(go.get_path(), self.animTime, None)
-                continue
-            cc.add_angle_info(go.get_path(), self.animTime, rot)
+                tsrWork.add_key_frame(t, go.get_path(), 'z', transform.get_z_angle())
+                tsrWork.add_key_frame(t, go.get_path(), 'w', transform.get_z_angle())
 
         # string to write it down, data for editor curves
         # note that euler curves are missing, but Unity ain't very picky about it
-        return cc.to_string(), cc.to_editor_string(Transform.type, 'm_LocalRotation')
+        return tsrWork.to_string(), tsrWork.to_editor_string()
 
 
     def calc_scale_curves(self):
