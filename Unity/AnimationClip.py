@@ -313,51 +313,8 @@ class AnimationClip(object):
                     continue
                 cc.add_info(go.get_path(), t, [sprite_renderer.get_alpha()])
 
-        finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
-        if self.isLooped:
-            finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
-
-        for go in finalKey:
-            if not go.does_take_part_in_anim_calcs():
-                continue
-            sprite_renderer = go.get_component_of_type(SpriteRenderer.type)
-            if sprite_renderer is None:
-                continue
-            cc.add_info(go.get_path(), self.animTime, [sprite_renderer.get_alpha()])
-
         # string to write it down, data for editor curves
         return cc.to_editor_string(SpriteRenderer.type, 'm_Color'), cc.to_editor_string(SpriteRenderer.type, 'm_Color')
-
-
-    def calc_pptr_curves(self):
-        if len(self.keyframes) == 0:
-            return None
-
-        cc = CurveCalcSprite()
-
-        for t in self.keyframes.keys():
-            for go in self.keyframes[t]:
-                if not go.does_take_part_in_anim_calcs():
-                    continue
-                sprite_renderer = go.get_component_of_type(SpriteRenderer.type)
-                if sprite_renderer is None:
-                    continue
-                cc.add_info(go.get_path(), t, [sprite_renderer.get_sprite_guid()])
-
-        finalKey = self.keyframes[sorted(self.keyframes.keys())[-1]]
-        if self.isLooped:
-            finalKey = self.keyframes[sorted(self.keyframes.keys())[0]]
-
-        for go in finalKey:
-            if not go.does_take_part_in_anim_calcs():
-                continue
-            sprite_renderer = go.get_component_of_type(SpriteRenderer.type)
-            if sprite_renderer is None:
-                continue
-            cc.add_info(go.get_path(), self.animTime, [sprite_renderer.get_sprite_guid()])
-
-        # sprite changing generate NO editor curve
-        return cc.to_editor_string(SpriteRenderer.type, 'm_Sprite')
 
 
     def calc_animation_events(self):
