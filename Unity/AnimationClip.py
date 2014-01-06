@@ -3,10 +3,6 @@ __author__ = 'Malhavok'
 import math
 import codecs
 
-from CurveCalc import CurveCalc
-from CurveCalcRot import CurveCalcRot
-from CurveCalcInstant import CurveCalcInstant
-from CurveCalcSprite import CurveCalcSprite
 from Transform import Transform
 from SpriteRenderer import SpriteRenderer
 from GameObject import GameObject
