@@ -48,6 +48,7 @@ def export_to_unity(scmlFile, unityDir):
 
                 ac.add_key_frame(kf.get_time(), tmpPM.get_game_object_list())
 
+            ac.add_final_keyframe()
             ac.save()
             print '    Done.'
 

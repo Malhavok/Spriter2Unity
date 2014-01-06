@@ -33,7 +33,7 @@ class AnimationClip(object):
         self.baseGOList = baseGOList
 
         self.animationScript = self.find_animation_script()
-        assert(self.animationScript)
+        assert self.animationScript
 
 
     def set_looped(self, isLooped):
@@ -60,6 +60,17 @@ class AnimationClip(object):
 
             return script
         return None
+
+
+    def add_final_keyframe(self):
+        sortedTime = sorted(self.keyframes.keys())
+
+        if self.isLooped:
+            finalTime = sortedTime[0]
+        else:
+            finalTime = sortedTime[-1]
+
+        self.keyframes[self.animTime] = self.keyframes[finalTime]
 
 
     def to_string(self):
