@@ -8,16 +8,10 @@ This is an early version and is probably NOT working well, but it'll be fixed ov
 NOTICE
 ======
 
-Another major change. Whole system for calculating curves for Unity was redesigned. It may still be a bit buggy,
-whenever you notice anything big - let me know, i'll try to fix it ASAP.
+Check out the NEW UNITY PLUGIN by Mythgarr!
 
-Each time using Spriter2Unity copy content of UnityAssets directory into your own project Asset directory.
-This means, that after operation you should have [unity project]/Assets/Spriter2Unity/ directory with some
-weird stuff inside.
+https://github.com/mythgarr/Spriter2Unity
 
-Remember, that every time you're downloading a new version you have to export all your animations again
-and you have to update your project with newest scripts from UnityAssets directory. Without this steps
-nothing can work for sure.
 
 About
 =====
