@@ -1,17 +1,17 @@
+PLUGIN DISCONTINUED
+===================
+
+Use Mythgarr version! It's more native and easier to use.
+
+https://github.com/mythgarr/Spriter2Unity
+
+
 Spriter2Unity
 =============
 
 Tool that converts SCML files into unity .prefab and .anim files
 
 This is an early version and is probably NOT working well, but it'll be fixed over time. It requires python installed in your system (but no special or external library is needed). Generated prefab's and anim's are in Unity text mode, dunno yet how it'll behave in the long run.
-
-NOTICE
-======
-
-Check out the NEW UNITY PLUGIN by Mythgarr!
-
-https://github.com/mythgarr/Spriter2Unity
-
 
 About
 =====
